@@ -1,0 +1,456 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="Core.Values.AbstractConnectable" Collapsed="true">
+    <Position X="11" Y="9.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAIAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Connectable\AbstractConnectable.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Core.Values.AbstractConnectableObject" Collapsed="true">
+    <Position X="8.75" Y="11" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACAAAA=</HashCode>
+      <FileName>Connectable\AbstractConnectableObject.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Core.Values.AbstractConnection" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="16.25" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACAAAAAAAAA=</HashCode>
+      <FileName>Connection\AbstractConnection.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="Core.Values.AutoOneWayBinding" Collapsed="true">
+    <Position X="18" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAgAAAAAAAAAAAAAAAAAAAAEAAAAAAAAAEAAAAAAA=</HashCode>
+      <FileName>Binding\AutoOneWayBinding.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Core.Values.BinaryBinding" Collapsed="true">
+    <Position X="12.25" Y="3.5" Width="2.5" />
+    <TypeIdentifier>
+      <HashCode>AAgAgAAABiAQQgISARAICgAAAAAAAAAEAAAkBAAAQCA=</HashCode>
+      <FileName>Binding\BinaryBinding.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Core.Values.Binding" Collapsed="true">
+    <Position X="19.75" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAgIAAAAAAAAAAAAgAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Binding\Binding.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Core.Values.ConnectorBase" Collapsed="true">
+    <Position X="12" Y="11" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAABAAAAAAAAAAAAAAAAAAAAAAAAAAQAAAA=</HashCode>
+      <FileName>Connector\ConnectorBase.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Core.Values.ConnectorInfo" Collapsed="true">
+    <Position X="1.75" Y="10.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAEAAIAACAIAEAAABAAAAAAAAAIAAAAAAAAQAAAQEAA=</HashCode>
+      <FileName>Connector\ConnectorInfo.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Core.Values.DelegateSink" Collapsed="true">
+    <Position X="11" Y="13.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AACAAQAAAAECAAAAAAAAAAAAAAAAAAIAAAACAAAQoAA=</HashCode>
+      <FileName>Sink\DelegateSink.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Core.Values.DelegateSink&lt;T&gt;" Collapsed="true">
+    <Position X="11" Y="15.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AACAAAAAAAAAAAACAAAAAAAAAAAAAAIAAAAiAEAAIAA=</HashCode>
+      <FileName>Sink\DelegateSink.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Core.Values.DelegateSource" Collapsed="true">
+    <Position X="13.25" Y="13.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>QAAAIUAAAQAAAAAAAgAAABCQAAAQAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Source\DelegateSource.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Core.Values.DelegateSource&lt;T&gt;" Collapsed="true">
+    <Position X="13.25" Y="15.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAABAAAAAQAgAAAAAgAAAAAAA=</HashCode>
+      <FileName>Source\DelegateSource.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Core.Values.DelegateValue" Collapsed="true">
+    <Position X="5.5" Y="10.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAIAAAAAEAAAAAAIAAAACAAAAAAAAAAAAACAAAAAg=</HashCode>
+      <FileName>Value\DelegateValue.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Core.Values.TypedDelegateValue&lt;T&gt;" Collapsed="true">
+    <Position X="5.5" Y="12" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAIAAAACAAAAAAAAAAAAgCEAAAAg=</HashCode>
+      <FileName>Value\DelegateValueT.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Core.Values.AbstractOneWayBinding" Collapsed="true">
+    <Position X="13.75" Y="5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAgAAAAgAAAACCAAAAAAAAAAAAAAAAAAAEAAAAAAA=</HashCode>
+      <FileName>Binding\ManualOneWayBinding.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Core.Values.MemoryValue" Collapsed="true">
+    <Position X="0.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAIAAAAAEAAAAAAAAAAAAAAAAAACAAAAAAAAAAAAA=</HashCode>
+      <FileName>Value\MemoryValue.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Core.Values.MemoryValue&lt;T&gt;" Collapsed="true">
+    <Position X="0.5" Y="2" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAgAAQAAAA=</HashCode>
+      <FileName>Value\MemoryValue.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Core.Values.Sink" Collapsed="true">
+    <Position X="16.25" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEAAAAAAAAAAA=</HashCode>
+      <FileName>Sink\Sink.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Core.Values.AbstractSink" Collapsed="true">
+    <Position X="11" Y="12.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAQAAICAEAAAAIAAAAAAAAAAAAAAAAAAAgAEAAiAA=</HashCode>
+      <FileName>Sink\AbstractSink.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Core.Values.SinkInfo" Collapsed="true">
+    <Position X="0.5" Y="12" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAQAAAAEAAAAAAAAAAAAQAAAEAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Sink\SinkInfo.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Core.Values.Source" Collapsed="true">
+    <Position X="18" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAgAAAAAAAAAAAEAAAAAAAAAAA=</HashCode>
+      <FileName>Source\Source.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Core.Values.AbstractSource" Collapsed="true">
+    <Position X="13.25" Y="12.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>BAAEIEAAAAAAAAAAEAAABAAAAEAAAAAFBAFgBGAAwCA=</HashCode>
+      <FileName>Source\AbstractSource.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Core.Values.SourceInfo" Collapsed="true">
+    <Position X="2.75" Y="12" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAABAAAAAQAAAAAAAAAAAgAAAAAAAAIAAA=</HashCode>
+      <FileName>Source\SourceInfo.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Core.Values.TwoWayBinding" Collapsed="true">
+    <Position X="11.5" Y="5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAgAAAAgAAAAACAAAAAAEAAAAAAACAAAAEAAAAAAA=</HashCode>
+      <FileName>Binding\TwoWayBinding.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Core.Values.Value" Collapsed="true">
+    <Position X="19.75" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAgAAAAgCAAAAgAAAAAAAAAAEAgAAAAAAAAA=</HashCode>
+      <FileName>Value\Value.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Core.Values.ValueBase" Collapsed="true">
+    <Position X="12.5" Y="12.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAYEAACAEABABAAABABAAIAEAAAAQAAABgAGAIgAA=</HashCode>
+      <FileName>ValueBase.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Core.Values.ValueInfo" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="16.25" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAEAQAAQAAIEFAAAAARBCAAIAAIACAAAAAAQAAQAEAA=</HashCode>
+      <FileName>Value\ValueInfo.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Interface Name="Core.Values.IAsyncConnector" Collapsed="true">
+    <Position X="3.25" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Connector\IAsyncConnector.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="Core.Values.IAsyncSink" Collapsed="true">
+    <Position X="2.5" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Sink\IAsyncSink.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="Core.Values.IAsyncSource" Collapsed="true">
+    <Position X="5.5" Y="6.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Source\IAsyncSource.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="Core.Values.IAsyncValue" Collapsed="true">
+    <Position X="5.5" Y="8.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Value\IAsyncValue.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="Core.Values.IBinding" Collapsed="true">
+    <Position X="16.25" Y="3.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAACAAAAAAAAAAAAAAgBAAAAAA=</HashCode>
+      <FileName>Binding\IBinding.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="Core.Values.IConnectable" Collapsed="true">
+    <Position X="7" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Connectable\IConnectable.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="Core.Values.IConnectableObject" Collapsed="true">
+    <Position X="10" Y="2" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACAAAA=</HashCode>
+      <FileName>Connectable\IConnectableObject.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="Core.Values.IConnection" Collapsed="true">
+    <Position X="18" Y="3.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Connection\IConnection.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="Core.Values.IConnector" Collapsed="true">
+    <Position X="5.5" Y="2" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAABAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Connector\IConnector.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="Core.Values.IManualBinding" Collapsed="true">
+    <Position X="19.75" Y="3.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAACAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Binding\IManualBinding.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="Core.Values.ISink" Collapsed="true">
+    <Position X="5.5" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAQAAICAAAAAAAAAAAAAAAAAAAAAAAAAAgAAAAiAA=</HashCode>
+      <FileName>Sink\ISink.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="Core.Values.ISink&lt;T&gt;" Collapsed="true">
+    <Position X="5.5" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAgAAAAAAA=</HashCode>
+      <FileName>Sink\ISinkT.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="Core.Values.ISource" Collapsed="true">
+    <Position X="7.75" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>BAAAAEAAAAAAAAAAAAAABAAAAEAAAAAAAAAgACAAgAA=</HashCode>
+      <FileName>Source\ISource.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="Core.Values.ISource&lt;T&gt;" Collapsed="true">
+    <Position X="7.75" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAgAAAAAAA=</HashCode>
+      <FileName>Source\ISourceT.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="Core.Values.IValue" Collapsed="true">
+    <Position X="8.75" Y="6.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAgAAAIAAA=</HashCode>
+      <FileName>Value\IValue.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="Core.Values.IValue&lt;T&gt;" Collapsed="true">
+    <Position X="8.75" Y="8.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAgAAAAAAA=</HashCode>
+      <FileName>Value\IValue.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="Core.Values.IOneWayBinding" Collapsed="true">
+    <Position X="16.25" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAgAAAAACAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Binding\IOneWayBinding.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="Core.Values.ITwoWayBinding&lt;TA, TB&gt;" Collapsed="true">
+    <Position X="18" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAgAAAAACAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Binding\TwoWayBinding.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="Core.Values.ISourceInfo" Collapsed="true">
+    <Position X="0.5" Y="7.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Source\ISourceInfo.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="Core.Values.ISinkInfo" Collapsed="true">
+    <Position X="2.75" Y="7.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Sink\ISinkInfo.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="Core.Values.IValueInfo" Collapsed="true">
+    <Position X="1.75" Y="9.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Value\IValueInfo.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="Core.Values.IConnectorInfo" Collapsed="true">
+    <Position X="1.75" Y="6.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAIAEAAAAAAAAAAAAAAAAAAAAAAAAAQAEAA=</HashCode>
+      <FileName>Connector\IConnectorInfo.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Enum Name="Core.Values.BindingState" Collapsed="true">
+    <Position X="16.25" Y="5.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAIAAAACAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Binding\BindingState.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="Core.Values.SourceState" Collapsed="true">
+    <Position X="18" Y="5.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAEAAAAAAAAAAAAAABAAAAAAAAAQABA=</HashCode>
+      <FileName>Source\SourceState.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Delegate Name="Core.Values.ProduceValueDelegate&lt;T&gt;" Collapsed="true">
+    <Position X="21.75" Y="6.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEAAA=</HashCode>
+      <FileName>Delegates.cs</FileName>
+    </TypeIdentifier>
+  </Delegate>
+  <Delegate Name="Core.Values.ConsumeValueDelegate&lt;T&gt;" Collapsed="true">
+    <Position X="21.75" Y="5.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>BAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Delegates.cs</FileName>
+    </TypeIdentifier>
+  </Delegate>
+  <Delegate Name="Core.Values.CanProduceDelegate" Collapsed="true">
+    <Position X="18" Y="6.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAIAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Delegates.cs</FileName>
+    </TypeIdentifier>
+  </Delegate>
+  <Delegate Name="Core.Values.CanConsumeValueDelegate&lt;T&gt;" Collapsed="true">
+    <Position X="16.25" Y="6.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>BAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Delegates.cs</FileName>
+    </TypeIdentifier>
+  </Delegate>
+  <Delegate Name="Core.Values.SetterDelegate&lt;T&gt;" Collapsed="true">
+    <Position X="19.75" Y="7.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>BAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Delegates.cs</FileName>
+    </TypeIdentifier>
+  </Delegate>
+  <Delegate Name="Core.Values.GetterDelegate&lt;T&gt;" Collapsed="true">
+    <Position X="19.75" Y="6.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEAAA=</HashCode>
+      <FileName>Delegates.cs</FileName>
+    </TypeIdentifier>
+  </Delegate>
+  <Delegate Name="Core.Values.ValueProducedDelegate" Collapsed="true">
+    <Position X="19.75" Y="8" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAAAgA=</HashCode>
+      <FileName>Delegates.cs</FileName>
+    </TypeIdentifier>
+  </Delegate>
+  <Delegate Name="Core.Values.ValueConsumedDelegate" Collapsed="true">
+    <Position X="18" Y="8" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAAAgA=</HashCode>
+      <FileName>Delegates.cs</FileName>
+    </TypeIdentifier>
+  </Delegate>
+  <Delegate Name="Core.Values.SetterDelegate" Collapsed="true">
+    <Position X="16.25" Y="8" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Value\DelegateValue.cs</FileName>
+    </TypeIdentifier>
+  </Delegate>
+  <Delegate Name="Core.Values.GetterDelegate" Collapsed="true">
+    <Position X="16.25" Y="7.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAACAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Value\DelegateValue.cs</FileName>
+    </TypeIdentifier>
+  </Delegate>
+  <Delegate Name="Core.Values.NotifyValueChangedDelegate" Collapsed="true">
+    <Position X="18" Y="7.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Source\Source.cs</FileName>
+    </TypeIdentifier>
+  </Delegate>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

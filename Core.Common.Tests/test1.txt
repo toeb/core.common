@@ -1,0 +1,57 @@
+﻿using Core.FileSystem;
+using Core.Modules.Applications;
+using Core.TestingUtilities;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace Core.Modules.Installation.AssemblyResources.Test
+{
+  [TestClass]
+  public class CoreModulesINstallationResourcesTest : TypedTestBase<AssemblyResourcesInstaller>
+  {
+
+    protected override AssemblyResourcesInstaller CreateUut()
+    {
+      app = Application.Create<ModuleApplication>();
+
+      app.Import<IRelativeFileSystem>(new RelativeFileSystem("test"), InstallationContracts.InstallationFileSystem);
+
+      installer = app.ActivateModuleType<InstallationModule>();
+      return app.ActivateModuleType<AssemblyResourcesInstaller>();
+
+
+    }
+
+    [TestMethod]
+    public void TestResourcesAreProvided()
+    {
+      var uut = app.ActivateModuleType<TestModule>();
+      var installation = installer.RequireInstallation(uut);
+      installer.Install(installation);
+      Assert.IsNotNull(uut.Resources);
+    }
+
+    public ModuleApplication app { get; set; }
+
+    public InstallationModule installer { get; set; }
+  }
+
+  [Module]
+  [Installable("AssemblyResources")]
+  class TestModule
+  {
+    [ImportInstalledResources]
+    public IAssemblyResourceInstallation Resources { get; set; }
+
+
+    [InstalledCallback]
+    public void Installed()
+    {
+    }
+
+  }
+}

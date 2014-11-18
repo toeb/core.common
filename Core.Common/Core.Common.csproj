@@ -1,0 +1,653 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{C0873AB0-BF39-47A8-A697-FC2C84C39794}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Core</RootNamespace>
+    <AssemblyName>Core.Common</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\</SolutionDir>
+    <RestorePackages>true</RestorePackages>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Test|AnyCPU'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\Test\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DebugType>full</DebugType>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x86'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\x86\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DebugType>full</DebugType>
+    <PlatformTarget>x86</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x86'">
+    <OutputPath>bin\x86\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>x86</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Test|x86'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\x86\Test\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DebugType>full</DebugType>
+    <PlatformTarget>x86</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="GeorgeCloney, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\GeorgeCloney.1.0.0.11\lib\net40\GeorgeCloney.dll</HintPath>
+    </Reference>
+    <Reference Include="MathNet.Numerics, Version=2.6.1.30, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\MathNet.Numerics.2.6.2\lib\net40\MathNet.Numerics.dll</HintPath>
+    </Reference>
+    <Reference Include="MathNet.Numerics.IO, Version=2.6.1.30, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\MathNet.Numerics.2.6.2\lib\net40\MathNet.Numerics.IO.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=6.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Newtonsoft.Json.6.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="Nito.AsyncEx, Version=2.1.3.0, Culture=neutral, PublicKeyToken=09d695329ca273b7, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Nito.AsyncEx.2.1.3\lib\net45\Nito.AsyncEx.dll</HintPath>
+    </Reference>
+    <Reference Include="Nito.AsyncEx.Concurrent, Version=2.1.3.0, Culture=neutral, PublicKeyToken=09d695329ca273b7, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Nito.AsyncEx.2.1.3\lib\net45\Nito.AsyncEx.Concurrent.dll</HintPath>
+    </Reference>
+    <Reference Include="Nito.AsyncEx.Enlightenment, Version=2.1.3.0, Culture=neutral, PublicKeyToken=09d695329ca273b7, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Nito.AsyncEx.2.1.3\lib\net45\Nito.AsyncEx.Enlightenment.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.Composition" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Numerics" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Annotations\ExtraDataAttribute.cs" />
+    <Compile Include="AssemblyResources\IAssemblyResources.cs" />
+    <Compile Include="AssemblyResources\IAssemblyResourceService.cs" />
+    <Compile Include="AssemblyResources\IAssemblyResourceServiceExtensions.cs" />
+    <Compile Include="AssemblyResources\IFileResource.cs" />
+    <Compile Include="AssemblyResources\IManagedResource.cs" />
+    <Compile Include="AssemblyResources\Implementation\AssemblyResources.cs" />
+    <Compile Include="AssemblyResources\Implementation\EmbeddedResourceHandler.cs" />
+    <Compile Include="AssemblyResources\Implementation\FileResource.cs" />
+    <Compile Include="AssemblyResources\Implementation\FileResourceHandler.cs" />
+    <Compile Include="AssemblyResources\Implementation\ManagedResource.cs" />
+    <Compile Include="AssemblyResources\Implementation\ResourceService.cs" />
+    <Compile Include="AssemblyResources\Implementation\ResourcesHandler.cs" />
+    <Compile Include="AssemblyResources\Implementation\StringResource.cs" />
+    <Compile Include="AssemblyResources\Implementation\StringResourceHandler.cs" />
+    <Compile Include="AssemblyResources\Installation\IResourceExtensions.cs" />
+    <Compile Include="AssemblyResources\Installation\Ntfs.cs" />
+    <Compile Include="AssemblyResources\IResourceHandler.cs" />
+    <Compile Include="AssemblyResources\IStringResource.cs" />
+    <Compile Include="Collections\BufferedEnumerator.cs" />
+    <Compile Include="Collections\CollectionConnector.cs" />
+    <Compile Include="Collections\CompositeEnumerator.cs" />
+    <Compile Include="Collections\DelegateEqualityComparer.cs" />
+    <Compile Include="Collections\DispatchingObservableCollection.cs" />
+    <Compile Include="Collections\Enumerable.cs" />
+    <Compile Include="Collections\EnumerableSelection.cs" />
+    <Compile Include="BitRot\DataStructures\INodeStorage.cs" />
+    <Compile Include="BitRot\DataStructures\Node.cs" />
+    <Compile Include="BitRot\DataStructures\NodeBase.cs" />
+    <Compile Include="BitRot\DataStructures\NodeStorageMemoryCentral.cs" />
+    <Compile Include="BitRot\DataStructures\NodeStorageMemoryLocal.cs" />
+    <Compile Include="Collections\EnumeratorEnumerable.cs" />
+    <Compile Include="Collections\IBufferedEnumeratorExtensions.cs" />
+    <Compile Include="Collections\IEnumeratorExtensions.cs" />
+    <Compile Include="Collections\ISaveRestoreEnumerator.cs" />
+    <Compile Include="Collections\ObservableStack.cs" />
+    <Compile Include="BitRot\DataStructures\TreeNode.cs" />
+    <Compile Include="BitRot\Initialization\IInitializer.cs" />
+    <Compile Include="BitRot\Initialization\IInitializerMetaData.cs" />
+    <Compile Include="BitRot\Initialization\Initializer.cs" />
+    <Compile Include="BitRot\Naming\INamedObject.cs" />
+    <Compile Include="BitRot\Naming\NamingExtensions.cs" />
+    <Compile Include="BitRot\Utility\CollectionFactory.cs" />
+    <Compile Include="BitRot\Utility\CoreDispatcher.cs" />
+    <Compile Include="BitRot\Utility\QueryResult.cs" />
+    <Compile Include="Cloning.cs" />
+    <Compile Include="Collections\CollectionTransform.cs" />
+    <Compile Include="Collections\CollectionView.cs" />
+    <Compile Include="Collections\FilteredCollection.cs" />
+    <Compile Include="Collections\FilteredEnumerable.cs" />
+    <Compile Include="Collections\ICollectionExtensions.cs" />
+    <Compile Include="Collections\ICollectionView.cs" />
+    <Compile Include="Collections\IDictionaryExtensions.cs" />
+    <Compile Include="Collections\IEnumerableExtensions.cs" />
+    <Compile Include="Collections\IFeedbackContainer.cs" />
+    <Compile Include="Collections\RandomAccessEnumerator.cs" />
+    <Compile Include="Collections\SaveRestoreEnumerator.cs" />
+    <Compile Include="Commands\ArgAttribute.cs" />
+    <Compile Include="Commands\CommandAttribute.cs" />
+    <Compile Include="Comparers\GuidEqualityComparer.cs" />
+    <Compile Include="Composition.cs" />
+    <Compile Include="Configuration\ConfigurableAttribute.cs" />
+    <Compile Include="Configuration\IConfigurationService.cs" />
+    <Compile Include="Converters\AbstractExtendedConverter.cs" />
+    <Compile Include="Converters\AbstractExtendedConverterT.cs" />
+    <Compile Include="Converters\AbstractTwoWayExtendedConverter.cs" />
+    <Compile Include="Converters\ConversionErrorException.cs" />
+    <Compile Include="Converters\ConversionRequest.cs" />
+    <Compile Include="Converters\ExtendedConverter.cs" />
+    <Compile Include="Converters\Format.cs" />
+    <Compile Include="Converters\Formats.cs" />
+    <Compile Include="Converters\IExtendedConverter.cs" />
+    <Compile Include="Converters\IFormat.cs" />
+    <Compile Include="Converters\Implementation\Extended\IntCharConverter.cs" />
+    <Compile Include="Converters\Implementation\Extended\NullableNullableConverter.cs" />
+    <Compile Include="Converters\Implementation\Extended\NullableToReferenceTypeConverter.cs" />
+    <Compile Include="Converters\Implementation\Extended\NullableToValueTypeConverter.cs" />
+    <Compile Include="Converters\Implementation\Extended\ReferenceTypeToNullableConverter.cs" />
+    <Compile Include="Converters\Implementation\Extended\SameTypeConverter.cs" />
+    <Compile Include="Converters\Implementation\Extended\StringIntExtendedConverter.cs" />
+    <Compile Include="Converters\Implementation\Extended\ValueTypeToNullableConverter.cs" />
+    <Compile Include="FileSystem\Search\PathSearch.cs" />
+    <Compile Include="FileSystem\Search\PathSearchFluent.cs" />
+    <Compile Include="FileSystem\Search\PathSearchUtility.cs" />
+    <Compile Include="Formatters\AbstractReader.cs" />
+    <Compile Include="Formatters\AbstractReaderT.cs" />
+    <Compile Include="Formatters\AbstractWriter.cs" />
+    <Compile Include="Formatters\FormattingContext.cs" />
+    <Compile Include="Formatters\IFormatter.cs" />
+    <Compile Include="Formatters\IFormatterExtensions.cs" />
+    <Compile Include="Formatters\ReadContext.cs" />
+    <Compile Include="Formatters\WriteContext.cs" />
+    <Compile Include="Messaging\Model\MessageRequestExtensions.cs" />
+    <Compile Include="PropertyStore\AbstractPropertyStore.cs" />
+    <Compile Include="Context\DictionaryValueMap.cs" />
+    <Compile Include="PropertyStore\IPropertyStore.cs" />
+    <Compile Include="IValueMap.cs" />
+    <Compile Include="PropertyStore\PropertyStoreBase.cs" />
+    <Compile Include="Scopes\AbstractScope.cs" />
+    <Compile Include="Context\ContextDictionary.cs" />
+    <Compile Include="Context\ContextServiceModule.cs" />
+    <Compile Include="Context\IContextDictionary.cs" />
+    <Compile Include="Scopes\IScope.cs" />
+    <Compile Include="Scopes\PropertyChangingScope.cs" />
+    <Compile Include="Scopes\Scope.cs" />
+    <Compile Include="Scopes\ScopeBase.cs" />
+    <Compile Include="Scopes\ScopeExtensions.cs" />
+    <Compile Include="Entities\DataDescription.cs" />
+    <Compile Include="Entities\DataSinkDescription.cs" />
+    <Compile Include="Entities\DataSourceDescription.cs" />
+    <Compile Include="Entities\EntityContext.cs" />
+    <Compile Include="Entities\EntityService.cs" />
+    <Compile Include="Entities\EntityServiceModule.cs" />
+    <Compile Include="Entities\IDataSinkProvider.cs" />
+    <Compile Include="Entities\IDataSourceProvider.cs" />
+    <Compile Include="Entities\IEntityContext.cs" />
+    <Compile Include="Entities\IEntityContextExtensions.cs" />
+    <Compile Include="Entities\IEntityService.cs" />
+    <Compile Include="Entities\IRulesService.cs" />
+    <Compile Include="Entities\ServiceBase.cs" />
+    <Compile Include="FileSystem\Delegate\DelegateFileSystem.cs" />
+    <Compile Include="FileSystem\Delegate\DelegateReadonlyFilesystem.cs" />
+    <Compile Include="FileSystem\Exceptions\DirectoryDoesNotExistException.cs" />
+    <Compile Include="FileSystem\Exceptions\DirectoryIsNotEmptyException.cs" />
+    <Compile Include="FileSystem\Exceptions\FileDoesNotExistException.cs" />
+    <Compile Include="FileSystem\FileFormat.cs" />
+    <Compile Include="FileSystem\Memory\MemoryFileSystemEntry.cs" />
+    <Compile Include="FileSystem\Memory\MemoryFileSystemEntryStream.cs" />
+    <Compile Include="FileSystem\Search\PathSearchModel.cs" />
+    <Compile Include="FileSystem\Utility\FileLib.cs" />
+    <Compile Include="FileSystem\Memory\MemoryFileSystem.cs" />
+    <Compile Include="FileSystem\Exceptions\PathExistsException.cs" />
+    <Compile Include="FileSystem\Exceptions\PathNotFoundException.cs" />
+    <Compile Include="FileSystem\Physical\PhysicalModifiableFileSystem.cs" />
+    <Compile Include="FileSystem\Physical\PhysicalReadonlyFileSystem.cs" />
+    <Compile Include="FileSystem\Utility\RelativePath.cs" />
+    <Compile Include="Messaging\CryptoMessage.cs" />
+    <Compile Include="Reflection\TypeService\AttributeTarget.cs" />
+    <Compile Include="Reflection\TypeService\Attribute.cs" />
+    <Compile Include="Scopes\ScopeView.cs" />
+    <Compile Include="Serialization\Json.NET\GuidTypeBinder.cs" />
+    <Compile Include="Messaging\IApplicationMessagingExtensions.cs" />
+    <Compile Include="Messaging\IMessageHandler.cs" />
+    <Compile Include="Messaging\IMessageHandlerExtensions.cs" />
+    <Compile Include="Messaging\IMessagePipeline.cs" />
+    <Compile Include="Messaging\IMessagePipelineExtensions.cs" />
+    <Compile Include="Messaging\IMessageTracker.cs" />
+    <Compile Include="Messaging\IMessagingService.cs" />
+    <Compile Include="Messaging\IMessagingServiceExtensions.cs" />
+    <Compile Include="Messaging\Implementation\AbstractMessageHandler.cs" />
+    <Compile Include="Messaging\Implementation\DelegateMessageHandler.cs" />
+    <Compile Include="Messaging\Implementation\MessageHandler.cs" />
+    <Compile Include="Messaging\Implementation\MessageTracker.cs" />
+    <Compile Include="Messaging\Implementation\MessageTrackerT.cs" />
+    <Compile Include="Messaging\Implementation\MessagingService.cs" />
+    <Compile Include="Messaging\Implementation\MessagingServiceModule.cs" />
+    <Compile Include="Messaging\Model\MessageRequest.cs" />
+    <Compile Include="Messaging\Model\MessageResponse.cs" />
+    <Compile Include="Modules\ActivationCallbackAttribute.cs" />
+    <Compile Include="Modules\ApplicationCommands\ApplicationConsoleCommands.cs" />
+    <Compile Include="Modules\ApplicationContainerAttribute.cs" />
+    <Compile Include="Modules\ApplicationRunner\ApplicationRunnerModule.cs" />
+    <Compile Include="Modules\ApplicationRunner\IApplicationRunner.cs" />
+    <Compile Include="Modules\Applications\Application.cs" />
+    <Compile Include="Modules\Applications\IApplication.cs" />
+    <Compile Include="Modules\Applications\IApplicationExtensions.cs" />
+    <Compile Include="Modules\Applications\IApplicationInformation.cs" />
+    <Compile Include="Modules\Applications\IApplicationListener.cs" />
+    <Compile Include="Modules\Applications\IModifiableModuleInstance.cs" />
+    <Compile Include="Modules\Applications\IModuleInstance.cs" />
+    <Compile Include="Modules\Applications\Implementation\AbstractApplication.cs" />
+    <Compile Include="Modules\Applications\Implementation\ApplicationBase.cs" />
+    <Compile Include="Modules\Applications\Implementation\ApplicationInformationBase.cs" />
+    <Compile Include="Modules\Applications\Implementation\ModuleBase.cs" />
+    <Compile Include="Modules\Applications\Implementation\ModuleInformatonBase.cs" />
+    <Compile Include="Modules\Applications\Implementation\ModuleInstance.cs" />
+    <Compile Include="Modules\Applications\ModuleApplication.cs" />
+    <Compile Include="Modules\Applications\ModuleInstanceAttribute.cs" />
+    <Compile Include="Modules\ConsoleCommands\CommandRunner.cs" />
+    <Compile Include="Modules\ConsoleInteractionModule\ConsoleInteractionModule.cs" />
+    <Compile Include="Modules\ConsoleInteractionModule\IConsoleHandler.cs" />
+    <Compile Include="Modules\DeactivationCallbackAttribute.cs" />
+    <Compile Include="Modules\IModule.cs" />
+    <Compile Include="Modules\IModuleInformation.cs" />
+    <Compile Include="Modules\IModuleMetaData.cs" />
+    <Compile Include="Modules\Installation\AssemblyResources\AssemblyResourceInstallation.cs" />
+    <Compile Include="Modules\Installation\AssemblyResources\AssemblyResourceInstallationModuleBase.cs" />
+    <Compile Include="Modules\Installation\AssemblyResources\AssemblyResourcesInstaller.cs" />
+    <Compile Include="Modules\Installation\AssemblyResources\AssemblyResourcesInstallerModule.cs" />
+    <Compile Include="Modules\Installation\AssemblyResources\IAssemblyResourceInstallation.cs" />
+    <Compile Include="Modules\Installation\AssemblyResources\ImportInstalledResourcesAttribute.cs" />
+    <Compile Include="Modules\Installation\CanInstallCallbackAttribute.cs" />
+    <Compile Include="Modules\Installation\IInstallationAspect.cs" />
+    <Compile Include="Modules\Installation\IInstallationService.cs" />
+    <Compile Include="Modules\Installation\IInstallationServiceExtensions.cs" />
+    <Compile Include="Modules\Installation\IInstaller.cs" />
+    <Compile Include="Modules\Installation\Implementation\AbstractInstallationAspect.cs" />
+    <Compile Include="Modules\Installation\Implementation\InstallationModule.cs" />
+    <Compile Include="Modules\Installation\ImportInstallationFileSystemAttribute.cs" />
+    <Compile Include="Modules\Installation\ImportInstallationInstanceAttribute.cs" />
+    <Compile Include="Modules\Installation\InstallableAttribute.cs" />
+    <Compile Include="Modules\Installation\InstallationContracts.cs" />
+    <Compile Include="Modules\Installation\InstallationInstance.cs" />
+    <Compile Include="Modules\Installation\InstalledCallbackAttribute.cs" />
+    <Compile Include="Modules\Installation\InstallerAttribute.cs" />
+    <Compile Include="Modules\Installation\OnInstallationDiscoveredAttribute.cs" />
+    <Compile Include="Modules\Installation\UninstalledCallbackAttribute.cs" />
+    <Compile Include="Modules\ModuleAttribute.cs" />
+    <Compile Include="Modules\ModuleContainerAttribute.cs" />
+    <Compile Include="ObjectGraph\AbstractGraphDomain.cs" />
+    <Compile Include="ObjectGraph\AbstractGraphObject.cs" />
+    <Compile Include="ObjectGraph\AbstractGraphProperty.cs" />
+    <Compile Include="ObjectGraph\GraphDomain.cs" />
+    <Compile Include="ObjectGraph\GraphObject.cs" />
+    <Compile Include="ObjectGraph\GraphObjectPropertyConnection.cs" />
+    <Compile Include="ObjectGraph\GraphProperty.cs" />
+    <Compile Include="ObjectGraph\IGraphDomain.cs" />
+    <Compile Include="ObjectGraph\IGraphDomainExtensions.cs" />
+    <Compile Include="ObjectGraph\IGraphDomainNode.cs" />
+    <Compile Include="ObjectGraph\IGraphObject.cs" />
+    <Compile Include="ObjectGraph\IGraphObjectPropertyConnection.cs" />
+    <Compile Include="ObjectGraph\IGraphProperty.cs" />
+    <Compile Include="ObjectGraph\IPropertyValueConnection.cs" />
+    <Compile Include="ObjectGraph\PropertyValueConnection.cs" />
+    <Compile Include="Reflection\TypeService\ITypeService.cs" />
+    <Compile Include="Reflection\TypeService\ObjectProperty.cs" />
+    <Compile Include="Reflection\TypeService\ObjectType.cs" />
+    <Compile Include="Reflection\TypeService\TypeService.cs" />
+    <Compile Include="Resources\ResourcesModule.cs" />
+    <Compile Include="Rules\DummyRulesService.cs" />
+    <Compile Include="Rules\IRule.cs" />
+    <Compile Include="Rules\IRuleContext.cs" />
+    <Compile Include="Rules\IRulesService.cs" />
+    <Compile Include="Rules\IRulesServiceExtensions.cs" />
+    <Compile Include="Rules\RuleContext.cs" />
+    <Compile Include="Rules\RulesService.cs" />
+    <Compile Include="Rules\RulesServiceModule.cs" />
+    <Compile Include="Serialization\Json.NET\CustomConverters\ConfigurationJsonConverter.cs" />
+    <Compile Include="Serialization\Json.NET\CustomConverters\MappedJsonConverter.cs" />
+    <Compile Include="Context\ContextConstants.cs" />
+    <Compile Include="Context\ContextDescriptor.cs" />
+    <Compile Include="Context\ContextKeyAttribute.cs" />
+    <Compile Include="Context\ContextService.cs" />
+    <Compile Include="Context\DummyRequestContextProvider.cs" />
+    <Compile Include="Context\IContext.cs" />
+    <Compile Include="Context\IContextProvider.cs" />
+    <Compile Include="Context\IContextService.cs" />
+    <Compile Include="Context\IContextExtensions.cs" />
+    <Compile Include="Context\SimpleContext.cs" />
+    <Compile Include="Converters\ConverterBase.cs" />
+    <Compile Include="Converters\GuidStringConverter.cs" />
+    <Compile Include="Converters\IConverter.cs" />
+    <Compile Include="Converters\IConverter`2.cs" />
+    <Compile Include="Converters\ToStringConverter.cs" />
+    <Compile Include="Converters\TToTConverter.cs" />
+    <Compile Include="Cryptography\CryptoObjectExtensions.cs" />
+    <Compile Include="DelegateExtensions.cs" />
+    <Compile Include="Delegates.cs" />
+    <Compile Include="DynamicObjects\DynamicObjectExtensions.cs" />
+    <Compile Include="Equality.cs" />
+    <Compile Include="Errors\IErrorService.cs" />
+    <Compile Include="FileSystem\Physical\AbstractPhysicalFileSystem.cs" />
+    <Compile Include="FileSystem\Composite\CompositeFileSystem.cs" />
+    <Compile Include="FileSystem\Service\FileSystemService.cs" />
+    <Compile Include="FileSystem\IFileSystem.cs" />
+    <Compile Include="FileSystem\Utility\IFileSystemExtensions.cs" />
+    <Compile Include="FileSystem\Service\IFileSystemService.cs" />
+    <Compile Include="FileSystem\IReadonlyFileSystem.cs" />
+    <Compile Include="FileSystem\IRelativeFileSystem.cs" />
+    <Compile Include="FileSystem\Service\IUriService.cs" />
+    <Compile Include="FileSystem\Physical\PhysicalFileSystem.cs" />
+    <Compile Include="FileSystem\Relative\RelativeFileSystem.cs" />
+    <Compile Include="Graph\Directed\AbstractEdge.cs" />
+    <Compile Include="Graph\Directed\AbstractGraph.cs" />
+    <Compile Include="Graph\Directed\AbstractNode.cs" />
+    <Compile Include="Graph\Directed\DirectedGraphExtensions.cs" />
+    <Compile Include="Graph\Directed\EdgeBase.cs" />
+    <Compile Include="Graph\Directed\GraphBase.cs" />
+    <Compile Include="Graph\Directed\IEdge.cs" />
+    <Compile Include="Graph\Directed\IEdgeBase.cs" />
+    <Compile Include="Graph\Directed\IGraph.cs" />
+    <Compile Include="Graph\Directed\IGraphBase.cs" />
+    <Compile Include="Graph\Directed\IGraphElement.cs" />
+    <Compile Include="Graph\Directed\INode.cs" />
+    <Compile Include="Graph\Directed\INodeBase.cs" />
+    <Compile Include="Graph\Directed\NodeBase.cs" />
+    <Compile Include="Graph\Expandable\AbstractExpandable.cs" />
+    <Compile Include="Graph\Expandable\DelegateExpandable.cs" />
+    <Compile Include="Graph\Expandable\Delegates.cs" />
+    <Compile Include="Graph\Expandable\ExpandableState.cs" />
+    <Compile Include="Graph\Expandable\IExpandable.cs" />
+    <Compile Include="Graph\GraphExtensions.cs" />
+    <Compile Include="Graph\TraversalContext.cs" />
+    <Compile Include="GuidExtensions.cs" />
+    <Compile Include="Identification\GuidIdentifierProvider.cs" />
+    <Compile Include="Identification\AbstractIdentifierProvider.cs" />
+    <Compile Include="Identification\IIdentifiableIdentityAccessor.cs" />
+    <Compile Include="Identification\IIdentifierProvider.cs" />
+    <Compile Include="Identification\IIdentifierProviderT.cs" />
+    <Compile Include="Identification\IIdentifiable.cs" />
+    <Compile Include="Identification\IIdentityAccessor.cs" />
+    <Compile Include="Identification\IIdentityAssignable.cs" />
+    <Compile Include="Identification\IIdentityProvider.cs" />
+    <Compile Include="Identification\UintIdentifierProvider.cs" />
+    <Compile Include="IPriority.cs" />
+    <Compile Include="Graph\Nodes\Graph.cs" />
+    <Compile Include="Graph\Nodes\GraphBase.cs" />
+    <Compile Include="Graph\Nodes\INode.cs" />
+    <Compile Include="Graph\Nodes\INodeExtensions.cs" />
+    <Compile Include="Collections\MappingCollection.cs" />
+    <Compile Include="Collections\MappingEnumerable.cs" />
+    <Compile Include="Collections\Marker.cs" />
+    <Compile Include="Graph\Nodes\Node.cs" />
+    <Compile Include="Collections\ObservableCollectionView.cs" />
+    <Compile Include="Collections\ObservableSet.cs" />
+    <Compile Include="Collections\OrderedSet.cs" />
+    <Compile Include="Cryptography\Cryptography.cs" />
+    <Compile Include="DateTime\DateTimeInterval.cs" />
+    <Compile Include="ManagedObjects\Abstract\AbstractManagedObject.cs" />
+    <Compile Include="ManagedObjects\Abstract\AbstractManagedProperty.cs" />
+    <Compile Include="ManagedObjects\Abstract\AbstractManagedPropertyT.cs" />
+    <Compile Include="ManagedObjects\Abstract\AbstractObjectPropertyConnection.cs" />
+    <Compile Include="ManagedObjects\Abstract\AbstractReflectedManagedProperty.cs" />
+    <Compile Include="ManagedObjects\Abstract\IManagedObjectExtensions.cs" />
+    <Compile Include="ManagedObjects\Attributes\ManagedAttribute.cs" />
+    <Compile Include="ManagedObjects\Attributes\ManagedObjectAttribute.cs" />
+    <Compile Include="ManagedObjects\Attributes\ManagedPropertyAttributeHelpers.cs" />
+    <Compile Include="ManagedObjects\Attributes\UnmanagedAttribute.cs" />
+    <Compile Include="ManagedObjects\CombinationPolicy.cs" />
+    <Compile Include="ManagedObjects\IAssignableManagedObject.cs" />
+    <Compile Include="ManagedObjects\IAssignableManagedObjectExtensions.cs" />
+    <Compile Include="ManagedObjects\IExtensibleManagedObject.cs" />
+    <Compile Include="ManagedObjects\IExtensibleManagedObjectExtensions.cs" />
+    <Compile Include="ManagedObjects\IManagedObject.cs" />
+    <Compile Include="ManagedObjects\IManagedObjectInfo.cs" />
+    <Compile Include="ManagedObjects\IManagedObjectValue.cs" />
+    <Compile Include="ManagedObjects\IManagedProperty.cs" />
+    <Compile Include="ManagedObjects\IManagedPropertyT.cs" />
+    <Compile Include="ManagedObjects\Implementation\AssignableManagedObject.cs" />
+    <Compile Include="ManagedObjects\Implementation\DelegateManagedPropertyT.cs" />
+    <Compile Include="ManagedObjects\Implementation\ManagedForwardingProperty.cs" />
+    <Compile Include="ManagedObjects\Implementation\ManagedObject.cs" />
+    <Compile Include="ManagedObjects\Implementation\ManagedObjectBase.cs" />
+    <Compile Include="ManagedObjects\Implementation\ManagedObjectInfo.cs" />
+    <Compile Include="ManagedObjects\Implementation\ManagedObjectValue.cs" />
+    <Compile Include="ManagedObjects\Implementation\ManagedProperty.cs" />
+    <Compile Include="ManagedObjects\Implementation\ManagedPropertyInfo.cs" />
+    <Compile Include="ManagedObjects\Implementation\MemoryManagedProperty.cs" />
+    <Compile Include="ManagedObjects\Implementation\MemoryManagedPropertyT.cs" />
+    <Compile Include="ManagedObjects\Implementation\ReflectedManagedNotifyingObject.cs" />
+    <Compile Include="ManagedObjects\Implementation\ReflectedManagedObject.cs" />
+    <Compile Include="ManagedObjects\Implementation\ReflectedManagedProperty.cs" />
+    <Compile Include="ManagedObjects\Implementation\ReflectedManagedPropertyInfo.cs" />
+    <Compile Include="ManagedObjects\Implementation\ReflectedNotifyingManagedProperty.cs" />
+    <Compile Include="ManagedObjects\IObjectPropertyConnection.cs" />
+    <Compile Include="ManagedObjects\IPropertyInfo.cs" />
+    <Compile Include="ManagedObjects\ManagedObjectException.cs" />
+    <Compile Include="ManagedObjects\Merge\CreateMissingPropertiesMerge.cs" />
+    <Compile Include="ManagedObjects\Merge\ManagedObjectMergeStrategies.cs" />
+    <Compile Include="ManagedObjects\Merge\OverwriteExistingPropertyMerge.cs" />
+    <Compile Include="MefExtensions.cs" />
+    <Compile Include="Merge\AbstractMergeStrategyT.cs" />
+    <Compile Include="Merge\IMergeStrategyT.cs" />
+    <Compile Include="Reflection\Anonymous.cs" />
+    <Compile Include="Reflection\IProjectInfo.cs" />
+    <Compile Include="Reflection\IProjectInfoExtensions.cs" />
+    <Compile Include="Reflection\ProjectInfo.cs" />
+    <Compile Include="Repositories\AbstractRepositoryT.cs" />
+    <Compile Include="Repositories\IDataSink.cs" />
+    <Compile Include="Repositories\IDataSinkT.cs" />
+    <Compile Include="Repositories\IDataSource.cs" />
+    <Compile Include="Repositories\IDataSourceExtensions.cs" />
+    <Compile Include="Repositories\IDataSourceT.cs" />
+    <Compile Include="Repositories\IIdDataSink.cs" />
+    <Compile Include="Repositories\IIdDataSource.cs" />
+    <Compile Include="Repositories\IIdRepository.cs" />
+    <Compile Include="Repositories\IRepository.cs" />
+    <Compile Include="Repositories\IRepositoryT.cs" />
+    <Compile Include="Resources\AbstractResourceRepository.cs" />
+    <Compile Include="Resources\DelegateResourceRepository.cs" />
+    <Compile Include="Resources\IResourceRepository.cs" />
+    <Compile Include="Resources\ResourceRepositoryBase.cs" />
+    <Compile Include="Serialization\Json.NET\CustomConverters\System.TypeConverter.cs" />
+    <Compile Include="Serialization\Json.NET\CustomConverters\System.TypeReferenceConverter.cs" />
+    <Compile Include="Serialization\Json.NET\CustomConverters\DefaultJsonConverter.cs" />
+    <Compile Include="Serialization\Json.NET\EntitySerializer.cs" />
+    <Compile Include="Serialization\Json.NET\CustomConverters\JsonConverterBase.cs" />
+    <None Include="Serialization\Json.NET\JsonFileObjectValue.cs" />
+    <None Include="Serialization\Json.NET\JsonFileSink.cs" />
+    <None Include="Serialization\Json.NET\JsonFileSource.cs" />
+    <None Include="Serialization\Json.NET\JsonSyncedFileObject.cs" />
+    <Compile Include="Serialization\Json.NET\CustomConverters\TypedJsonConverterBase.cs" />
+    <Compile Include="Store\DirectedGraph\DirectedGraphStore.cs" />
+    <Compile Include="Store\DirectedGraph\Edge.cs" />
+    <Compile Include="Store\DirectedGraph\IDirectedGraphStore.cs" />
+    <Compile Include="Store\DirectedGraph\IDirectedGraphStoreExtensions.cs" />
+    <Compile Include="Store\DirectedGraph\IDirectedGraphStoreGuid.cs" />
+    <Compile Include="Store\DirectedGraph\Node.cs" />
+    <Compile Include="Store\KeyValue\IKeyValueStore.cs" />
+    <Compile Include="Store\KeyValue\Implementation\CloningKeyValueStore.cs" />
+    <Compile Include="Store\KeyValue\Implementation\FileKeyValueStore.cs" />
+    <Compile Include="Store\KeyValue\Implementation\JsonFileKeyValueStore.cs" />
+    <Compile Include="Store\KeyValue\Implementation\JsonMemoryKeyValueStore.cs" />
+    <Compile Include="Store\KeyValue\Implementation\MemoryKeyValueStore.cs" />
+    <Compile Include="Store\KeyValue\KeyValueRepository.cs" />
+    <Compile Include="Store\KeyValue\KeyValueRepositoryGuidIdentityAssignable.cs" />
+    <Compile Include="Store\KeyValue\KeyValueRepositoryIdentityAssignable.cs" />
+    <Compile Include="Store\KeyValue\KeyValueStore.cs" />
+    <Compile Include="StreamExtensions.cs" />
+    <Compile Include="Strings\JamesFormatter.cs" />
+    <Compile Include="Strings\StringParseExtensions.cs" />
+    <Compile Include="Subscription\ISubscribable.cs" />
+    <Compile Include="Subscription\ISubscribableExtensions.cs" />
+    <Compile Include="LambdaEqualityComparer.cs" />
+    <Compile Include="Mathematics\PiecewiseLinearFunction.cs" />
+    <Compile Include="Merge\AbstractMergeStrategy.cs" />
+    <Compile Include="Merge\CompositeMergeStrategy.cs" />
+    <Compile Include="Merge\IMergeStrategy.cs" />
+    <Compile Include="Merge\PropertyMergeException.cs" />
+    <Compile Include="Network.cs" />
+    <Compile Include="NotifyPropertyChangedBase.cs" />
+    <Compile Include="ObjectExtensions.cs" />
+    <Compile Include="PriorityAttribute.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Reflection\IReflectionService.cs" />
+    <Compile Include="Reflection\Reflection.cs" />
+    <Compile Include="Reflection\ReflectionExtensions.cs" />
+    <Compile Include="Reflection\ReflectionService.cs" />
+    <Compile Include="Strings\StringTools.cs" />
+    <Compile Include="Subscription\SubscribableBase.cs" />
+    <Compile Include="TaskExtensions.cs" />
+    <Compile Include="TemplateArgument.cs" />
+    <Compile Include="Trying\ExceptionHandlers\AbstractExceptionHandler.cs" />
+    <Compile Include="Trying\ExceptionHandlers\SimpleExceptionHandler.cs" />
+    <Compile Include="Trying\IExpectedExceptionHandler.cs" />
+    <Compile Include="Trying\ITryRepeatStrategy.cs" />
+    <Compile Include="Trying\IWaitingStrategy.cs" />
+    <Compile Include="Trying\RepeatStrategies\NRepeatsTryRepeatStrategy.cs" />
+    <Compile Include="Trying\RepeatStrategies\NRepeatsWithTimelimitStrategy.cs" />
+    <Compile Include="Trying\Try.cs" />
+    <Compile Include="Trying\TryContext.cs" />
+    <Compile Include="Trying\TryExtensions.cs" />
+    <Compile Include="Trying\WaitingStrategies\ConstantBackoffWaitingStrategy.cs" />
+    <Compile Include="Trying\WaitingStrategies\ExponentialBackoffWaitingStrategy.cs" />
+    <Compile Include="Trying\WaitingStrategies\LinearBackoffWaitingStrategy.cs" />
+    <Compile Include="UriExtensions.cs" />
+    <Compile Include="Utility.cs" />
+    <Compile Include="ValueChangeEventArgs.cs" />
+    <Compile Include="Values\Binding\AutoOneWayBinding.cs" />
+    <Compile Include="Values\Binding\BinaryBinding.cs" />
+    <Compile Include="Values\Binding\Binding.cs" />
+    <Compile Include="Values\Binding\BindingState.cs" />
+    <Compile Include="Values\Binding\IBinding.cs" />
+    <Compile Include="Values\Binding\IManualBinding.cs" />
+    <Compile Include="Values\Binding\IOneWayBinding.cs" />
+    <Compile Include="Values\Binding\ManualOneWayBinding.cs" />
+    <Compile Include="Values\Binding\OneWayMergeBinding.cs" />
+    <Compile Include="Values\Binding\TwoWayBinding.cs" />
+    <Compile Include="Values\Connectable\AbstractConnectable.cs" />
+    <Compile Include="Values\Connectable\AbstractConnectableObject.cs" />
+    <Compile Include="Values\Connectable\AbstractConnectableObjectValue.cs" />
+    <Compile Include="Values\Connectable\IConnectable.cs" />
+    <Compile Include="Values\Connectable\IConnectableObject.cs" />
+    <Compile Include="Values\Connection\AbstractConnection.cs" />
+    <Compile Include="Values\Connection\IConnection.cs" />
+    <Compile Include="Values\Connector\ConnectorBase.cs" />
+    <Compile Include="Values\Connector\ConnectorInfo.cs" />
+    <Compile Include="Values\Connector\IAsyncConnector.cs" />
+    <Compile Include="Values\Connector\IConnector.cs" />
+    <Compile Include="Values\Connector\IConnectorInfo.cs" />
+    <Compile Include="Values\Connector\IModifiableConnectorInfo.cs" />
+    <Compile Include="Values\Delegates.cs" />
+    <Compile Include="Values\Merge\AbstractConnectableMergeStrategy.cs" />
+    <Compile Include="Values\Merge\AbstractOneWayMergeStrategy.cs" />
+    <Compile Include="Values\Merge\AssignableMergeStrategy.cs" />
+    <Compile Include="Values\Merge\CommonAncestorMergeStrategy.cs" />
+    <Compile Include="Values\Merge\ExactTypeMergeStrategy.cs" />
+    <Compile Include="Values\Merge\IConnectableMergeStrategy.cs" />
+    <Compile Include="Values\Merge\IOneWayMergeStrategy.cs" />
+    <Compile Include="Values\Merge\MergeStrategy.cs" />
+    <Compile Include="Values\Merge\ThrowStrategy.cs" />
+    <Compile Include="Values\Sink\AbstractSink.cs" />
+    <Compile Include="Values\Sink\DelegateSink.cs" />
+    <Compile Include="Values\Sink\Files\AbstractFileSink.cs" />
+    <Compile Include="Values\Sink\Files\AbstractFileSinkT.cs" />
+    <Compile Include="Values\Sink\Files\DelegateFileSinkT.cs" />
+    <Compile Include="Values\Sink\IAsyncSink.cs" />
+    <Compile Include="Values\Sink\ISink.cs" />
+    <Compile Include="Values\Sink\ISinkInfo.cs" />
+    <Compile Include="Values\Sink\ISinkT.cs" />
+    <Compile Include="Values\Sink\Sink.cs" />
+    <Compile Include="Values\Sink\SinkInfo.cs" />
+    <Compile Include="Values\Source\AbstractSource.cs" />
+    <Compile Include="Values\Source\DelegateSource.cs" />
+    <Compile Include="Values\Source\Files\AbstractFileSource.cs" />
+    <Compile Include="Values\Source\Files\AbstractFileSourceT.cs" />
+    <Compile Include="Values\Source\Files\DelegateFileSource.cs" />
+    <Compile Include="Values\Source\Files\DelegateFileSourceT.cs" />
+    <Compile Include="Values\Source\IAsyncSource.cs" />
+    <Compile Include="Values\Source\ISource.cs" />
+    <Compile Include="Values\Source\ISourceExtensions.cs" />
+    <Compile Include="Values\Source\ISourceInfo.cs" />
+    <Compile Include="Values\Source\ISourceT.cs" />
+    <Compile Include="Values\Source\Source.cs" />
+    <Compile Include="Values\Source\SourceInfo.cs" />
+    <Compile Include="Values\Source\SourceState.cs" />
+    <Compile Include="Values\ValuesException.cs" />
+    <Compile Include="Values\Value\AbstractValue.cs" />
+    <Compile Include="Values\Value\CompositeValue.cs" />
+    <Compile Include="Values\Value\DelegateValue.cs" />
+    <Compile Include="Values\Value\DelegateValueT.cs" />
+    <Compile Include="Values\Value\FileObjectValue.cs" />
+    <Compile Include="Values\Value\Files\AbstractFileValue.cs" />
+    <Compile Include="Values\Value\Files\DelegateFileValueT.cs" />
+    <Compile Include="Values\Value\Files\IFileValue.cs" />
+    <Compile Include="Values\Value\IAsyncValue.cs" />
+    <Compile Include="Values\Value\IValue.cs" />
+    <Compile Include="Values\Value\IValueInfo.cs" />
+    <Compile Include="Values\Value\MemoryValue.cs" />
+    <Compile Include="Values\Value\Value.cs" />
+    <Compile Include="Values\Value\ValueInfo.cs" />
+    <Compile Include="Versioning\MergeResult.cs" />
+    <Compile Include="Versioning\MergeState.cs" />
+    <Compile Include="Versioning\SyncObject.cs" />
+    <Compile Include="WatchableFile.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="ManagedObjects\Diagram.cd" />
+    <None Include="packages.config" />
+    <None Include="Values\Diagram.cd" />
+  </ItemGroup>
+  <ItemGroup />
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(SolutionDir)\.nuget\NuGet.targets" Condition="Exists('$(SolutionDir)\.nuget\NuGet.targets')" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

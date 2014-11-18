@@ -1,0 +1,183 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{7B00E246-2D10-482B-8D04-601C04006120}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Core.Common.Tests</RootNamespace>
+    <AssemblyName>Core.Common.Tests</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <ProjectTypeGuids>{3AC096D0-A1C2-E12C-1390-A8335801FDAB};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+    <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
+    <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
+    <ReferencePath>$(ProgramFiles)\Common Files\microsoft shared\VSTT\$(VisualStudioVersion)\UITestExtensionPackages</ReferencePath>
+    <IsCodedUITest>False</IsCodedUITest>
+    <TestProjectType>UnitTest</TestProjectType>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Newtonsoft.Json, Version=6.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Newtonsoft.Json.6.0.6\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="Nito.AsyncEx">
+      <HintPath>..\packages\Nito.AsyncEx.3.0.0\lib\net45\Nito.AsyncEx.dll</HintPath>
+    </Reference>
+    <Reference Include="Nito.AsyncEx.Concurrent">
+      <HintPath>..\packages\Nito.AsyncEx.3.0.0\lib\net45\Nito.AsyncEx.Concurrent.dll</HintPath>
+    </Reference>
+    <Reference Include="Nito.AsyncEx.Enlightenment">
+      <HintPath>..\packages\Nito.AsyncEx.3.0.0\lib\net45\Nito.AsyncEx.Enlightenment.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.Composition" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+  </ItemGroup>
+  <Choose>
+    <When Condition="('$(VisualStudioVersion)' == '10.0' or '$(VisualStudioVersion)' == '') and '$(TargetFrameworkVersion)' == 'v3.5'">
+      <ItemGroup>
+        <Reference Include="Microsoft.VisualStudio.QualityTools.UnitTestFramework, Version=10.1.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL" />
+      </ItemGroup>
+    </When>
+    <Otherwise>
+      <ItemGroup>
+        <Reference Include="Microsoft.VisualStudio.QualityTools.UnitTestFramework" />
+      </ItemGroup>
+    </Otherwise>
+  </Choose>
+  <ItemGroup>
+    <Compile Include="AbstractModifiableFileSystemTest.cs" />
+    <Compile Include="AbstractReadonlyFilesystemTest.cs" />
+    <Compile Include="ConfigurationTEsts.cs" />
+    <Compile Include="ConfigurationWatch.cs" />
+    <Compile Include="ConfigurationWatcher.cs" />
+    <Compile Include="Core.Collections.cs" />
+    <Compile Include="Core.cs" />
+    <Compile Include="Core.Math.cs" />
+    <Compile Include="CoreApplicationTests.cs" />
+    <Compile Include="CoreCoverters.cs" />
+    <Compile Include="CoreFileLibParserTest.cs" />
+    <Compile Include="CoreFileSystemDocumentationTests.cs" />
+    <Compile Include="CoreFileSystemMemoryFileSystemTest.cs" />
+    <Compile Include="CoreFileSystemPhsicalModifiableFileSystemTest.cs" />
+    <Compile Include="CoreFileSystemPhysicalFileSystemTests.cs" />
+    <Compile Include="CoreFileSystemPhysicalReadonlyFileSystemTest.cs" />
+    <Compile Include="CoreFileSystemRelativeFileSystemTests.cs" />
+    <Compile Include="CoreFileSystemRelativeMemoryFileSystemTest.cs" />
+    <Compile Include="CoreFileSystemRelativeMemoryReadonlyTest.cs" />
+    <Compile Include="CoreFileSystemTest.cs" />
+    <Compile Include="CoreGraphGraphExtensions.cs" />
+    <Compile Include="CoreManagedObjectsMergeTests.cs" />
+    <Compile Include="CoreManagedObjectsTest.cs" />
+    <Compile Include="CoreMessagingTest.cs" />
+    <Compile Include="CoreModulesApplicationRunnerTest.cs" />
+    <Compile Include="CoreModulesInstallationInstallersAssemblyResources.cs" />
+    <Compile Include="CoreModulesInstallationResourcesTest.cs" />
+    <Compile Include="CoreModulesInstallationTests.cs" />
+    <Compile Include="CoreReflectionExtensionsTest.cs" />
+    <Compile Include="CoreRelativePathUtilityTest.cs" />
+    <Compile Include="CoreResourcesResourceManager.cs" />
+    <Compile Include="CoreStoreKeyValueTest.cs" />
+    <Compile Include="CoreTryTests.cs" />
+    <Compile Include="CoreValueFileBindingTest.cs" />
+    <Compile Include="CoreValuesFileSinkTest.cs" />
+    <Compile Include="CoreValuesFileSourceTest.cs" />
+    <Compile Include="CoreValuesFileValueTest.cs" />
+    <Compile Include="CoreValuesTest.cs" />
+    <Compile Include="CoreWatchableFileTest.cs" />
+    <Compile Include="DirectedGraphTests.cs" />
+    <Compile Include="FileSystemTest.cs" />
+    <Compile Include="IDirectedGraphStoreTests.cs" />
+    <Compile Include="MemoryFileSystemTest.cs" />
+    <Compile Include="Node.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="RightException.cs" />
+    <Compile Include="SynchronizableObjectTests.cs" />
+    <Compile Include="TestException %282%29.cs" />
+    <Compile Include="TestException.cs" />
+    <Compile Include="TracingTests.cs" />
+    <Compile Include="WrongException.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="example_dir\file1.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="example_dir\file2.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="example_dir\subdir\file3.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="folder1\folder3\test3.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="folder1\test1.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="folder2\test2.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="test1.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Core.Common.TestingUtilities\Core.TestingUtilities.csproj">
+      <Project>{c654eba7-7b20-4d61-9cff-207ede5b98fc}</Project>
+      <Name>Core.TestingUtilities</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\core.common\Core.Common.csproj">
+      <Project>{c0873ab0-bf39-47a8-a697-fc2c84c39794}</Project>
+      <Name>Core.Common</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Choose>
+    <When Condition="'$(VisualStudioVersion)' == '10.0' And '$(IsCodedUITest)' == 'True'">
+      <ItemGroup>
+        <Reference Include="Microsoft.VisualStudio.QualityTools.CodedUITestFramework, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+          <Private>False</Private>
+        </Reference>
+        <Reference Include="Microsoft.VisualStudio.TestTools.UITest.Common, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+          <Private>False</Private>
+        </Reference>
+        <Reference Include="Microsoft.VisualStudio.TestTools.UITest.Extension, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+          <Private>False</Private>
+        </Reference>
+        <Reference Include="Microsoft.VisualStudio.TestTools.UITesting, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+          <Private>False</Private>
+        </Reference>
+      </ItemGroup>
+    </When>
+  </Choose>
+  <Import Project="$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets" Condition="Exists('$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets')" />
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>
