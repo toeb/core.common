@@ -17,8 +17,6 @@ using Core.FileSystem;
 using System.ComponentModel.DataAnnotations;
 using System.Threading;
 using Core.Serialization;
-using Nito.AsyncEx;
-//using Nito.AsyncEx;
 
 namespace Core.Test
 {
@@ -294,6 +292,7 @@ namespace Core.Test
     JsonSerializer serializer;
     public ConfigurationService()
     {
+      throw new NotImplementedException();
       FileSystem = new RelativeFileSystem("config");
       serializer = new JsonSerializer();
       serializer.ReferenceLoopHandling = ReferenceLoopHandling.Serialize;
@@ -343,31 +342,31 @@ namespace Core.Test
 
     public async Task ReadConfigAsync(string key, Type type, object value)
     {
-      using (await asyncLock.LockAsync())
-      {
-        var path = GetPath(key, type);
-        using (var reader = new StreamReader(FileSystem.OpenRead(path)))
-        {
-          var result = serializer.Deserialize(reader, type);
-          Reflection.DeepCopy(result, value);
-        }
-      }
+      //using (await asyncLock.LockAsync())
+      //{
+      //  var path = GetPath(key, type);
+      //  using (var reader = new StreamReader(FileSystem.OpenRead(path)))
+      //  {
+      //    var result = serializer.Deserialize(reader, type);
+      //    Reflection.DeepCopy(result, value);
+      //  }
+      //}
 
     }
-    AsyncLock asyncLock = new AsyncLock();
+    //AsyncLock asyncLock = new AsyncLock();
     public async Task WriteConfigurationAsync(string key, Type type, object value)
     {
-      using (await asyncLock.LockAsync())
-      {
-        var path = GetPath(key, type);
-        FileSystem.EnsureFileExists(path);
-        var stream = FileSystem.OpenFile(path, FileAccess.Write);
-        using (var writer = new StreamWriter(stream))
-        {
-          serializer.Serialize(writer, value, type);
-          await writer.FlushAsync();
-        }
-      }
+      //using (await asyncLock.LockAsync())
+      //{
+      //  var path = GetPath(key, type);
+      //  FileSystem.EnsureFileExists(path);
+      //  var stream = FileSystem.OpenFile(path, FileAccess.Write);
+      //  using (var writer = new StreamWriter(stream))
+      //  {
+      //    serializer.Serialize(writer, value, type);
+      //    await writer.FlushAsync();
+      //  }
+      //}
 
     }
   }

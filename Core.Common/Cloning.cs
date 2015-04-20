@@ -12,7 +12,8 @@ namespace Core
     public static T DeepClone<T>(this T original)
     {
       if ((object)original == null) return default(T);
-      return GeorgeCloney.CloneExtension.DeepClone(original);
+      throw new NotImplementedException();
+      //return GeorgeCloney.CloneExtension.DeepClone(original);
     }
 
     private static MethodInfo memberwiseClone;
