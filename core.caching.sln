@@ -5,6 +5,8 @@ VisualStudioVersion = 12.0.31010.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Core.Caching", "Core.Caching\Core.Caching.csproj", "{ACAB49EE-47D4-4ABC-86F3-E9DAC0DD0AC8}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Core.Caching.Test", "Core.Caching.Test\Core.Caching.Test.csproj", "{2B06E090-7102-4532-ABCD-259D25CDE702}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +17,10 @@ Global
 		{ACAB49EE-47D4-4ABC-86F3-E9DAC0DD0AC8}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{ACAB49EE-47D4-4ABC-86F3-E9DAC0DD0AC8}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{ACAB49EE-47D4-4ABC-86F3-E9DAC0DD0AC8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2B06E090-7102-4532-ABCD-259D25CDE702}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2B06E090-7102-4532-ABCD-259D25CDE702}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2B06E090-7102-4532-ABCD-259D25CDE702}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2B06E090-7102-4532-ABCD-259D25CDE702}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
