@@ -3,6 +3,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Collections.Immutable;
 using System.Collections.Generic;
 using System.Linq;
+using System.Collections;
 namespace Core.Immutable.Test
 {
   public static class ImmutableHelpers
@@ -15,65 +16,26 @@ namespace Core.Immutable.Test
 
     }
   }
-  public class RevisionNode
-  {
-    private object @object;
-    private Revision revision;
-    private RevisionNode previous;
-    public RevisionNode(object @object, Revision revision, RevisionNode previous)
-    {
-      this.@object = @object;
-      this.revision = revision;
-      this.previous = previous;
-    }
 
-    public Revision Revision { get { return revision; } }
-    public object Object { get { return @object; } }
-    public RevisionNode Previous { get { return previous; } }
 
-  }
-  public class Revision
-  {
-    private List<RevisionNode> nodes;
-    
-    private object state;
-    private DateTime timestamp;
-    private Revision parent;
-
-    public Revision(Revision parent, DateTime timestamp, object state)
-    {
-      ImmutableHelpers.IsImmutable(state, state == null ? null : state.GetType());
-      this.state = state;
-      this.timestamp = timestamp;
-      this.parent = parent;
-    }
-    object State { get { return state; } }
-    public DateTime Timestamp { get { return timestamp; } }
-    public Revision Parent { get { return parent; } }
-
-  }
   public class ImmutablePropertyStore : Core.AbstractPropertyStore
   {
-    IImmutableDictionary<string, object> store;
+    internal ModelNode Node { get; set; }
 
     protected override void SetProperty(string key, object value, Type type)
     {
-      if (!ImmutableHelpers.IsImmutable(value, type)) throw new ArgumentException("value MUST be immutable");
 
     }
 
     protected override object GetProperty(string key, Type type)
     {
-      object result = null;
-      var success = store.TryGetValue(key, out result);
-      return result;
+      return null;
     }
 
     protected override bool HasProperty(string key, Type type)
     {
-      string result;
-      var success = store.TryGetKey(key, out result);
-      return success;
+
+      return false;
     }
   }
 
@@ -85,261 +47,231 @@ namespace Core.Immutable.Test
     public Person Parent { get { return Get<Person>(); } set { Set(value); } }
   }
 
-  public interface IImmutableGraph<NodeType>
+  public class ModelNode : IEquatable<ModelNode>
   {
-    int NodeCount { get; }
-    int EdgeCount { get; }
-    IImmutableSet<NodeType> Nodes { get; }
-    IImmutableSet<Edge<NodeType>> Edges { get; }
+    private object data;
+    public object Data
+    {
+      get { return data; }
+    }
+    public ModelNode(object data)
+    {
+      if (data == null)
+      {
+        this.data = data;
 
+      }
+      else if (data.GetType() == typeof(string) || data.GetType().IsPrimitive)
+      {
+        this.data = data;
 
+      }
+      else
+      {
+        throw new Exception("node may only store primitive data");
+      }
+    }
+    public bool Equals(ModelNode other)
+    {
+      return object.ReferenceEquals(other, this);
+    }
+  }
+
+  public class ModelEdge : Edge<ModelNode>
+  {
+    public ModelEdge(ModelNode tail, ModelNode head)
+      : base(tail, head)
+    {
+
+    }
+  }
+  public abstract class NodeView
+  {
+    public ModelNode Node { get; protected set; }
+    public abstract bool TrySetValue(object value);
+    public abstract bool TryGetValue(out object value);
+    public object Value
+    {
+      get
+      {
+        object value;
+        if (!TryGetValue(out value)) throw new Exception("could not get value");
+        return value;
+      }
+      set
+      {
+        if (!TrySetValue(value)) throw new Exception("could not set value");
+      }
+    }
+  }
+  public class PrimitiveNodeView : NodeView
+  {
+    private Model model;
+    public PrimitiveNodeView(Model model)
+    {
+      this.model = model;
+    }
+
+    public override bool TrySetValue(object value)
+    {
+      if (Node != null) model.Graph = model.Graph.WithoutNode(Node);
+      Node = new ModelNode(value);
+      model.Graph = model.Graph.WithNode(Node);
+      return true;
+    }
+    public override bool TryGetValue(out object value)
+    {
+      value = null;
+      if (Node == null) return false;
+      if (!model.Graph.Nodes.Contains(Node)) return false;
+      value = Node.Data;
+      return true;
+    }
 
   }
-  public static class ImmutableGraph
+  public class ListNodeView : NodeView
   {
-    internal static IImmutableGraph<NodeType> Create<NodeType>(params NodeType[] nodes)
+    private Model model;
+    public ListNodeView(Model model)
     {
-      return new ImmutableGraphImplementation<NodeType>(ImmutableHashSet.Create(nodes), ImmutableHashSet.Create<Edge<NodeType>>());
-    }
+      this.model = model;
 
-
-    public static IImmutableGraph<NodeType> WithNode<NodeType>(this IImmutableGraph<NodeType> self, NodeType node)
-    {
-      return new ImmutableGraphImplementation<NodeType>(self.Nodes.Add(node), self.Edges);
     }
-    public static IImmutableGraph<NodeType> WithoutNode<NodeType>(this IImmutableGraph<NodeType> self, NodeType node)
+    public override bool TrySetValue(object value)
     {
 
-      var edges = self.GetIncedentEdges(node);
-      foreach (var edge in edges) self = self.WithoutEdge(edge);
-      return new ImmutableGraphImplementation<NodeType>(self.Nodes.Remove(node), self.Edges);
-    }
+      if (value == null)
+      {
+        if(Node == null) model.Graph = model.Graph.WithoutNode(Node);
+        return true;
+      }
 
-    public static IEnumerable<Edge<NodeType>> GetIncedentEdges<NodeType>(this IImmutableGraph<NodeType> self, NodeType node)
-    {
-      return self.Edges.Where(edge => edge.Tail.Equals(node) || edge.Head.Equals(node));
-    }
-    public static IEnumerable<Edge<NodeType>> GetOutgoingEdges<NodeType>(this IImmutableGraph<NodeType> self, NodeType node)
-    {
-      return self.Edges.Where(edge => edge.Tail.Equals(node));
-    }
-    public static IEnumerable<Edge<NodeType>> GetIncommingEdges<NodeType>(this IImmutableGraph<NodeType> self, NodeType node)
-    {
-      return self.Edges.Where(edge => edge.Head.Equals(node));
-    }
-    public static IImmutableGraph<NodeType> WithEdge<NodeType>(this IImmutableGraph<NodeType> self, NodeType tail, NodeType head)
-    {
-      return self.WithEdge(new Edge<NodeType>(tail, head));
-    }
-    public static IImmutableGraph<NodeType> WithEdge<NodeType>(this IImmutableGraph<NodeType> self, Edge<NodeType> edge)
-    {
-      if (!self.Nodes.Contains(edge.Tail)) self = self.WithNode(edge.Tail);
-      if (!self.Nodes.Contains(edge.Head)) self = self.WithNode(edge.Head);
-      return new ImmutableGraphImplementation<NodeType>(self.Nodes, self.Edges.Add(edge));
+      var type = value.GetType();
+      if (!type.IsEnumerable()) return false;
+
+      var enumerable = value as IEnumerable;
       
+      foreach (var item in enumerable)
+      {
+        var view = model.Value(item);
+        var Node = view.Node;
+        model.Graph = model.Graph.WithNode(Node);
+      }
+
+      return false;
     }
-    public static IImmutableGraph<NodeType> WithoutEdge<NodeType>(this IImmutableGraph<NodeType> self, NodeType tail, NodeType head)
+
+    public override bool TryGetValue(out object value)
     {
-      return self.WithoutEdge(new Edge<NodeType>(tail, head));
-    }
-    public static IImmutableGraph<NodeType> WithoutEdge<NodeType>(this IImmutableGraph<NodeType> self, Edge<NodeType> edge)
-    {
-      return new ImmutableGraphImplementation<NodeType>(self.Nodes, self.Edges.Remove(edge));
+      value = null;
+      if(Node == null){
+        return true;
+      }
+      List<object> list;
+      foreach (var successor in model.Graph.GetSuccessors(Node))
+      {
+
+      }
+      throw new NotImplementedException();
     }
   }
-  public class Edge<NodeType>
+
+
+  public class Model
   {
-    private NodeType head;
-    private NodeType tail;
-    public Edge(NodeType tail, NodeType head) {
-      this.tail = tail;
-      this.head = head;
-    }
-    public override bool Equals(object obj)
+    private IImmutableGraph<ModelNode, ModelEdge> graph;
+    public IImmutableGraph<ModelNode, ModelEdge> Graph
     {
-      if (obj == null) return false;
-      if (obj.GetType() != typeof(Edge<NodeType>)) return false;
+      get
+      {
+        return graph;
+      }
+      set
+      {
+        graph = value;
+      }
+    }
+    private Model()
+    {
+      this.graph = ImmutableGraph.Create<ModelNode, ModelEdge>(CreateEdge);
+    }
 
-      return this == ((Edge<NodeType>)obj);
+    private ModelEdge CreateEdge(ModelNode tail, ModelNode head)
+    {
+      return new ModelEdge(tail, head);
+    }
+    public static Model Create() { return new Model(); }
 
-    }
-    public static bool operator ==(Edge<NodeType> lhs, Edge<NodeType> rhs)
-    {
-      return lhs.head.Equals(rhs.head) && lhs.tail.Equals(rhs.tail);
-    }
-    public static bool operator !=(Edge<NodeType> lhs, Edge<NodeType> rhs)
-    {
-      return !(lhs == rhs);
-    }
-    public override int GetHashCode()
-    {
-      return Head.GetHashCode() ^ Tail.GetHashCode();
-    }
-    public NodeType Head { get { return head; } }
-    public NodeType Tail { get { return tail; } }
 
+    internal PrimitiveNodeView Primitive(object value)
+    {
+      var view = new PrimitiveNodeView(this);
+      view.TrySetValue(value);
+      return view;
+    }
+
+
+    internal ListNodeView List(IEnumerable items)
+    {
+      throw new NotImplementedException();
+    }
+    internal ListNodeView List(params object[] items)
+    {
+      return List(items.AsEnumerable());
+    }
+
+
+    internal NodeView Value(object item)
+    {
+      if (item == null || item.GetType().IsPrimitive || item.GetType() == typeof(string)) return Primitive(item);
+      var type = item.GetType();
+      if (type.IsEnumerable()) return List(item as IEnumerable);
+      throw new NotImplementedException();
+      // implements ModelObject?
+    }
   }
-  class ImmutableGraphImplementation<NodeType> :IImmutableGraph<NodeType>
-  {
 
-    private IImmutableSet<NodeType> nodes;    
-    private IImmutableSet<Edge<NodeType>> edges;
-
-    public ImmutableGraphImplementation(IImmutableSet<NodeType> nodes, IImmutableSet<Edge<NodeType>> edges)
-    {
-      this.nodes = nodes;
-      this.edges= edges;
-    }
-
-
-
-    public int NodeCount
-    {
-      get { return nodes.Count; }
-    }
-
-    public int EdgeCount
-    {
-      get { return edges.Count; }
-    }
-
-
-    public IImmutableSet<NodeType> Nodes
-    {
-      get { return nodes; }
-    }
-
-    public IImmutableSet<Edge<NodeType>> Edges
-    {
-      get { return edges; }
-    }
-
-
-  }
 
   [TestClass]
-  public class ImmutableGraphTests
+  public class ImmutableModelTest
   {
     [TestMethod]
-    public void CreateEmpty()
+    public void CreateImmutableModel()
     {
-      var graph = ImmutableGraph.Create<int>();
-      Assert.IsNotNull(graph);
-      Assert.AreEqual(0, graph.NodeCount);
-      Assert.AreEqual(0, graph.EdgeCount);
+      var model = Model.Create();
+      Assert.IsNotNull(model);
     }
     [TestMethod]
-    public void CreateFromParams()
+    public void CreatePrimitiveStringValue()
     {
-      var graph = ImmutableGraph.Create(1, 2, 3);
-      Assert.IsNotNull(graph);
-      Assert.AreEqual(3, graph.NodeCount);
-      Assert.AreEqual(0, graph.EdgeCount);
-      Assert.IsTrue(graph.Nodes.Contains(1));
-      Assert.IsTrue(graph.Nodes.Contains(2));
-      Assert.IsTrue(graph.Nodes.Contains(3));
-    }
-
-    [TestMethod]
-    public void AddNode()
-    {
-      var graph = ImmutableGraph.Create<int>().WithNode(2);
-      Assert.IsNotNull(graph);
-      Assert.AreEqual(0, graph.EdgeCount);
-      Assert.AreEqual(1, graph.NodeCount);
-      Assert.IsTrue(graph.Nodes.Contains(2));
-    }
-
-    [TestMethod]
-    public void AddEdge()
-    {
-      var graph = ImmutableGraph.Create(1, 2).WithEdge(1, 2);
-      Assert.IsNotNull(graph);
-      Assert.AreEqual(1, graph.EdgeCount);
-      Assert.AreEqual(2, graph.NodeCount);
-      Assert.IsTrue(graph.Edges.Contains(new Edge<int>(1,2)));
-
+      var model = Model.Create();
+      var node = model.Primitive("hello");
+      Assert.IsNotNull(node);
+      Assert.AreEqual("hello", node.Value);
     }
     [TestMethod]
-    public void AddEdgeWithUnknownNodes()
+    public void CreatePrimitiveIntValue()
     {
-      var graph = ImmutableGraph.Create(1, 2).WithEdge(3, 4);
-      Assert.AreEqual(4, graph.NodeCount);
-      Assert.AreEqual(1, graph.EdgeCount);
-      Assert.IsTrue(graph.Nodes.Contains(3));
-      Assert.IsTrue(graph.Nodes.Contains(4));
+      var model = Model.Create();
+      var node = model.Primitive(123);
+      Assert.IsNotNull(node);
+      Assert.AreEqual(123, node.Value);
     }
     [TestMethod]
-    public void RemoveUnconnectedNode()
+    public void CreatePrimitiveNullValue()
     {
-      var graph = ImmutableGraph.Create<int>(1, 2, 3);
-
-      graph = graph.WithoutNode(2);
-
-      Assert.AreEqual(2, graph.NodeCount);
-      Assert.AreEqual(0, graph.EdgeCount);
-      Assert.IsFalse(graph.Nodes.Contains(2));
+      var model = Model.Create();
+      var node = model.Primitive(null);
+      Assert.IsNotNull(node);
+      Assert.IsNull(node.Value);
     }
     [TestMethod]
-    public void RemoveEdge()
+    public void CreateListValue()
     {
-      var graph = ImmutableGraph
-        .Create(1, 2, 3)
-        .WithEdge(1, 2)
-        .WithEdge(2, 3)
-        .WithoutEdge(1, 2);
-      Assert.AreEqual(1, graph.EdgeCount);
-      Assert.IsFalse(graph.Edges.Contains(new Edge<int>(1, 2)));
-      Assert.IsTrue(graph.Edges.Contains(new Edge<int>(2,3)));
-      
-    }
-    [TestMethod]
-    public void GetIncommingEdges()
-    {
-      var graph = ImmutableGraph.Create(1, 2, 3)
-        .WithEdge(1, 2)
-        .WithEdge(2, 3);
-
-      var edges = graph.GetIncommingEdges(2);
-      Assert.AreEqual(1, edges.Count());
-      Assert.AreEqual(new Edge<int>(1, 2), edges.First());
-    }
-    [TestMethod]
-    public void GetOutgoingEdges()
-    {
-      var graph = ImmutableGraph.Create(1, 2, 3)
-        .WithEdge(1, 2)
-        .WithEdge(2, 3);
-
-      var edges = graph.GetOutgoingEdges(2);
-      Assert.AreEqual(1, edges.Count());
-      Assert.AreEqual(new Edge<int>(2, 3), edges.First());
+      var model = Model.Create();
+      var node = model.List();
+      Assert.IsNotNull(node);
 
     }
-    [TestMethod]
-    public void GetIncedentEdges()
-    {
-      var graph = ImmutableGraph.Create(1, 2, 3)
-        .WithEdge(1, 2)
-        .WithEdge(2, 3);
-
-      var edges = graph.GetIncedentEdges(2);
-      Assert.AreEqual(2, edges.Count());
-      Assert.IsTrue(edges.Contains(new Edge<int>(2, 3)));
-      Assert.IsTrue(edges.Contains(new Edge<int>(1, 2)));
-
-    }
-    [TestMethod]
-    public void RemoveConnectedNode()
-    {
-      var graph = ImmutableGraph.Create(1, 2, 3)
-        .WithEdge(1, 2)
-        .WithEdge(2, 3)
-        .WithoutNode(2);
-      Assert.AreEqual(2, graph.NodeCount);
-      Assert.AreEqual(0, graph.EdgeCount);
-      
-    }
-
   }
 }
