@@ -14,15 +14,20 @@ namespace Core
     }
     public PropertyChangingScope(IValueMap implementation) : base(implementation) { }
 
-    protected override void SetProperty(string key, object value, Type type)
+    protected override bool TrySetProperty(string key, object value, Type type)
     {
-      var prop = HasProperty(key,type) ? GetProperty(key,type) : null;
-      base.SetProperty(key, value,type);
-      if (prop != value)
+      object oldValue;
+      var getSuccess = TryGetProperty(key, out oldValue, type);
+
+      var setSuccess = base.TrySetProperty(key, value, type);
+      if (!setSuccess) return false;
+      if (getSuccess && oldValue != value)
       {
         OnPropertyChanaged(key);
         RaisePropertyChanged(key);
       }
+
+      return true;
     }
     protected void RaisePropertyChanged(string key)
     {

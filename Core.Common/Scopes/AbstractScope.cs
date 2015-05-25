@@ -44,14 +44,18 @@ namespace Core
       }
     }
 
-    protected override void SetProperty(string key, object value, Type type)
+    protected override bool TrySetProperty(string key, object value, Type type)
     {
+      
       this[key] = value;
+      return true;
     }
 
-    protected override object GetProperty(string key, Type type)
-    {
-      return this[key];
+    
+    protected override bool TryGetProperty(string key, out object value, Type type)
+    {      
+      value = this[key];
+      return true;
     }
 
     protected override bool HasProperty(string key,Type type)

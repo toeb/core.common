@@ -20,5 +20,16 @@ namespace Core
     {
       return dictionary.ContainsKey(key);
     }
+
+    public bool TryGet(string key, out object value)
+    {
+      return dictionary.TryGetValue(key, out value);
+    }
+
+    public bool TrySet(string key, object value)
+    {
+      dictionary[key] = value;
+      return true;
+    }
   }
 }

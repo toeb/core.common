@@ -25,19 +25,23 @@ namespace Core
       }
     }
 
-    protected override void SetProperty(string key, object value, Type Type)
+    protected override bool TrySetProperty(string key, object value, Type Type)
     {
-      Implementation.Set(key, value);
+      return Implementation.TrySet(key, value);
     }
 
-    protected override object GetProperty(string key, Type type)
-    {
-      return Implementation.Get(key);
-    }
+
+
+
 
     protected override bool HasProperty(string key, Type type)
     {
       return Implementation.Has(key);
+    }
+
+    protected override bool TryGetProperty(string key, out object value, Type type)
+    {
+      return Implementation.TryGet(key, out value);
     }
   }
 }
