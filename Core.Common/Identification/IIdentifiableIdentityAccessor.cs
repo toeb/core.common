@@ -4,7 +4,7 @@ using System.Linq;
 using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
-
+using Core.Common.Reflect;
 namespace Core.Identification
 {
   public delegate void SetIdentity<TId, T>(T item, TId id);

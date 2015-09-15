@@ -5,89 +5,138 @@ using System.Linq.Expressions;
 using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
-using Core.Graph;
-using Core.Extensions;
 using System.Runtime.InteropServices;
 using System.Runtime.CompilerServices;
-namespace Core.Extensions.Reflection
+using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
+using System.Collections;
+using System.Collections.ObjectModel;
+
+namespace Core.Common.Reflect
 {
-  public static class ReflectedPropertyExtensions
+
+
+
+  public static class Reflection
   {
-
-    public static bool IsSuperclassOf(this Type type, Type other)
-    {
-      return other.IsSubclassOf(type);
-    }
-    public static bool IsSubclassOfOrSameClass(this Type type, Type other)
-    {
-      return other == type || type.IsSubclassOf(other);
-    }
-    public static bool IsSuperclassOfOrSameClass(this Type type, Type other)
-    {
-      return other.IsSubclassOfOrSameClass(type);
-    }
-    public static bool HasExplicitConversionTo(this Type type, Type other)
-    {
-
-      var methods = type.GetMethods(System.Reflection.BindingFlags.Static | BindingFlags.Public).Concat(other.GetMethods(System.Reflection.BindingFlags.Static | BindingFlags.Public));
-      var conversionMethods = methods.Where(mi => mi.Name == "op_Explicit" && mi.GetParameters().Count() == 1 && mi.GetParameters()[0].ParameterType == type && mi.ReturnType == other);
-      return conversionMethods.Any();
-    }
-    public static bool HasImplicitConversionTo(this Type type, Type other)
-    {
-
-      var methods = type.GetMethods(System.Reflection.BindingFlags.Static | BindingFlags.Public).Concat(other.GetMethods(System.Reflection.BindingFlags.Static | BindingFlags.Public));
-      var conversionMethods = methods.Where(mi => mi.Name == "op_Implicit" && mi.GetParameters().Count() == 1 && mi.GetParameters()[0].ParameterType == type && mi.ReturnType == other);
-      return conversionMethods.Any();
-    }
-    
-
     /// <summary>
-    /// shorthand for getting property from object
+    /// 
     /// </summary>
     /// <param name="object"></param>
-    /// <param name="propertyName"></param>
     /// <returns></returns>
-    public static object GetProperty(this object @object, string propertyName)
+    public static string ObjectHash(object @object)
     {
-      if (@object == null) throw new ArgumentNullException("@object");
-      var type = @object.GetType();
-      var propertyInfo = type.GetProperty(propertyName);
-      if (propertyInfo == null) return null;
-      return propertyInfo.GetValue(@object);
+      string value = "null";
+      if (@object != null)
+      {
+        StringBuilder builder = new StringBuilder();
+        builder.Append(@object.GetType().FullName);
+        @object.GetType();
+        foreach (var i in Reflection.Bfs(@object))
+        {
+          ObjectValueHash(builder, i);
+        }
+        value = builder.ToString();
+      }
+      var hash = Crypto.Cryptography.GetMd5Hash(value);
+      return hash;
     }
-
-    public static object ReflectPropertyValue(this object @object, string propertyName, bool ignoreCase = false)
+    public static string ObjectValueHash(object @object)
     {
-
-      if (@object == null) throw new ArgumentNullException("@object");
-      var type = @object.GetType();
-
-      var propertyInfo = type.GetProperty(propertyName);
-      if (propertyInfo == null) return null;
-      return propertyInfo.GetValue(@object);
+      var sb = new StringBuilder();
+      ObjectValueHash(sb, @object);
+      return sb.ToString();
     }
-    public static object ReflectPropertyValueByIndex(this object @object, int index)
+    /// <summary>
+    /// calculates the hash for all properties of the specified object
+    /// </summary>
+    /// <param name="sb"></param>
+    /// <param name="object"></param>
+    public static void ObjectValueHash(StringBuilder sb, object @object)
     {
-      if (@object == null) throw new ArgumentNullException("@object");
+      if (@object == null) return;
       var type = @object.GetType();
+      foreach (var property in type.GetProperties())
+      {
+        if (property.PropertyType != typeof(string) && property.PropertyType.IsClass) continue;
+        var value = property.GetValue(@object);
+        sb.Append(property.Name);
+        if (value != null) sb.Append(value.GetHashCode());
+
+
+      }
+    }
+    public static IEnumerable<object> Bfs(object @object)
+    {
+
+      var queue = new Queue<object>();
+      queue.Enqueue(@object);
+      HashSet<object> visited = new HashSet<object>();
+      while (queue.Count > 0)
+      {
+        var current = queue.Dequeue();
+        if (current == null) continue;
+        if (visited.Contains(current)) continue;
+        visited.Add(current);
+        yield return current;
+
+        var successors = GetSuccessors(current).ToArray();
+        foreach (var successor in successors)
+        {
+          queue.Enqueue(successor);
+        }
+      }
+    }
+    public static IEnumerable<object> GetSuccessors(object @object)
+    {
+      if (@object == null) yield break;
+      
+      var type = @object.GetType();
+      if (type == typeof(string)) yield break;
+      if (@object is IEnumerable && type.GetGenericEnumerableElementType().IsClass && type.GetGenericEnumerableElementType() !=typeof(string))
+      {
+        foreach (var child in @object as IEnumerable)
+        {
+          yield return child;
+        }
+        yield break;
+      }      
       var properties = type.GetProperties();
-      if (index < 0) throw new ArgumentException("index may not be less than 0");
-      if (index >= properties.Length) throw new ArgumentOutOfRangeException("index", index, "index may not be larger than the number of properties");
-      var propertyInfo = properties[index];
-      if (propertyInfo == null) return null;
-      return propertyInfo.GetValue(@object);
+      
+      foreach (var property in properties)
+      {
+        if (!property.CanRead) continue;
+        if (!property.CanWrite) continue;
+        if (!property.GetGetMethod().IsPublic) continue;
+        if (property.GetIndexParameters().Count() > 0) continue;
+        var value = property.GetValue(@object);
+
+
+        if (property.PropertyType == typeof(string))
+        {
+          continue;
+        }
+        else if (property.PropertyType.IsEnumerable())
+        {
+          foreach (var element in GetSuccessors(value))
+          {
+            yield return element;
+          }
+        }
+        else
+        {
+          if (!property.PropertyType.IsClass) continue;
+          yield return value;
+        }
+
+      }
     }
-  }
-}
-namespace Core
-{
 
 
-
-  public static class ReflectionExtensions
-  {
-
+    public static IEnumerable<T> GetCustomAttributes<T>(this ICustomAttributeProvider attributeProvider, bool inherit = true) where T : System.Attribute
+    {
+      return attributeProvider.GetCustomAttributes(inherit).Where(atr => atr is T).Cast<T>().ToArray();
+    }
     public static Type GetNullableTypeArgument(this Type type)
     {
       if (!type.IsNullable()) return null;
@@ -175,19 +224,6 @@ namespace Core
       return guid;
     }
 
-    /// <summary>
-    /// returns the first common ancestor of a and b 
-    /// does not take into account interfaces
-    /// </summary>
-    /// <param name="a"></param>
-    /// <param name="b"></param>
-    /// <returns></returns>
-    public static Type GetCommonAncestorWith(this Type a, Type b)
-    {
-      var result =
-      a.FirstCommonAncestor(b, t => t.BaseType.MakeEnumerable(true));
-      return result;
-    }
 
     /// <summary>
     /// returns tuples of PropertyInfos and Attributes of type TAttribute
@@ -203,6 +239,11 @@ namespace Core
         yield return Tuple.Create(prop, prop.GetCustomAttribute<TAttribute>());
       }
       yield break;
+    }
+
+    public static T GetCustomAttribute<T>(this ICustomAttributeProvider provider, bool inherit = true) where T : System.Attribute
+    {
+      return provider.GetCustomAttributes<T>().FirstOrDefault();
     }
 
 
@@ -256,6 +297,11 @@ namespace Core
         yield return property;
       }
       yield break;
+    }
+
+    public static object GetCustomAttribute(this ICustomAttributeProvider provider, Type type, bool inherit)
+    {
+      return provider.GetCustomAttributes(type, inherit).FirstOrDefault();
     }
 
     /// <summary>
@@ -399,11 +445,29 @@ namespace Core
       return type.GetGenericIEnumerablesArguments().FirstOrDefault();
     }
 
+    public static bool IsGenericCollection(this Type type)
+    {
+      return type.IsGenericType && type.GetGenericTypeDefinition() == typeof(ICollection<>);
+    }
+
+    public static Type GetCollectionItemType(this Type type)
+    {
+      if (!type.IsGenericCollection()) return null;
+      return type.GetGenericArguments().Single();
+    }
+    public static ICollection CreateObservableCollection(Type itemType)
+    {
+      var genericType = typeof(ObservableCollection<>).MakeGenericType(itemType);
+      var instance = System.Activator.CreateInstance(genericType);
+      return instance as ICollection;
+    }
+
+
 
     public static IEnumerable<Type> GetGenericIEnumerablesArguments(this Type type)
     {
       return type
-              .GetInterfaces().Concat(type)
+              .GetInterfaces().Concat(new[] { type })
               .Where(t => t.IsGenericType == true
                   && t.GetGenericTypeDefinition() == typeof(IEnumerable<>))
               .Select(t => t.GetGenericArguments()[0]);
@@ -431,6 +495,21 @@ namespace Core
     public static Expression<Func<TModel, TValue>> Expression<TModel, TValue>(this TModel model, Expression<Func<TModel, TValue>> expression)
     {
       return expression;
+    }
+
+    public static string GetDisplayName(this Type type)
+    {
+      return GetDisplayName((ICustomAttributeProvider)type, type.Name);
+    }
+    public static string GetDisplayName(this ICustomAttributeProvider provider, string defaultName = null)
+    {
+      var displayNameAttribute = provider.GetCustomAttribute<DisplayNameAttribute>(true);
+      if (displayNameAttribute != null && displayNameAttribute.DisplayName != null) return displayNameAttribute.DisplayName;
+      var displayAttribute = provider.GetCustomAttribute<DisplayAttribute>(true);
+      if (displayAttribute != null && displayAttribute.Name != null) return displayAttribute.Name;
+
+      return defaultName;
+
     }
   }
 }

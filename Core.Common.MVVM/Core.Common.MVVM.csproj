@@ -1,0 +1,106 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{02D07068-17EF-4DD8-AD79-4D2718D23179}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Core.Common.MVVM</RootNamespace>
+    <AssemblyName>Core.Common.MVVM</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="PresentationCore" />
+    <Reference Include="PresentationFramework" />
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.Composition" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+    <Reference Include="WindowsBase" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Command\Command.cs" />
+    <Compile Include="Application\IStartupMetadata.cs" />
+    <Compile Include="Command\CommandService.cs" />
+    <Compile Include="Command\ICommandService.cs" />
+    <Compile Include="Command\IUiCommand.cs" />
+    <Compile Include="Command\UiCommandWrapper.cs" />
+    <Compile Include="Subscription\SubscriptionProvider.cs" />
+    <Compile Include="Resource\IconAttribute.cs" />
+    <Compile Include="Resource\IconResourceFinder.cs" />
+    <Compile Include="ViewModel\DispatchingSetter.cs" />
+    <Compile Include="ViewModel\IClosableView.cs" />
+    <Compile Include="ViewModel\ITitledObject.cs" />
+    <Compile Include="Resource\ResourceProvider.cs" />
+    <Compile Include="ViewModel\ViewModelCollection.cs" />
+    <Compile Include="View\IView.cs" />
+    <Compile Include="ViewModel\IViewModelMetadata.cs" />
+    <Compile Include="Command\CommandAttribute.cs" />
+    <Compile Include="Command\CommandProvider.cs" />
+    <Compile Include="Command\DelegateCommand.cs" />
+    <Compile Include="ViewModel\DependsOnAttribute.cs" />
+    <Compile Include="Application\IApplicationService.cs" />
+    <Compile Include="View\ISubViewManager.cs" />
+    <Compile Include="View\IViewManager.cs" />
+    <Compile Include="View\IViewMetadata.cs" />
+    <Compile Include="ViewModel\IViewModel.cs" />
+    <Compile Include="ViewModel\IViewModelProvider.cs" />
+    <Compile Include="ViewModel\IViewModelProviderMixins.cs" />
+    <Compile Include="View\IViewResult.cs" />
+    <Compile Include="ViewModel\ObservableCollectionGetter.cs" />
+    <Compile Include="Subscription\Subscription.cs" />
+    <Compile Include="View\SubViewManagerBase.cs" />
+    <Compile Include="ViewModel\ViewModelBase.cs" />
+    <Compile Include="ViewModel\ViewModelBaseMixins.cs" />
+    <Compile Include="View\ViewResult.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="View\ViewAttribute.cs" />
+    <Compile Include="ViewModel\ViewModelAttribute.cs" />
+    <Compile Include="ViewModel\Common\MessageViewModel.cs" />
+    <Compile Include="ViewModel\Common\OpenFileViewModel.cs" />
+    <Compile Include="ViewModel\Common\ProgressMessageViewModel.cs" />
+    <Compile Include="ViewModel\Common\SaveFileViewModel.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Core.Common\Core.Common.csproj">
+      <Project>{d9db0f40-d551-4183-9e6f-8b817a252ff5}</Project>
+      <Name>Core.Common</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Model\" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

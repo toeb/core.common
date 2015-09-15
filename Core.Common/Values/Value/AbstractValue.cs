@@ -1,6 +1,6 @@
 using System;
 using System.ComponentModel;
-
+using Core.Common.Reflect;
 namespace Core.Values
 {
   /// <summary>
@@ -140,7 +140,14 @@ namespace Core.Values
       RaiseValueProduced(value);
       return value;
     }
+    private bool EqualityCheck(object lhs, object rhs)
+    {
+      if (object.ReferenceEquals(lhs, rhs)) return true;
+      if (lhs != null) return lhs.Equals(rhs);
+      if (rhs != null) return rhs.Equals(lhs);
 
+      return true;
+    }
 
     public void Consume(object value)
     {
@@ -149,7 +156,7 @@ namespace Core.Values
       if (SourceInfo.IsReadable)
       {
         var oldValue = ProduceValue();
-        if (Equality.Check(oldValue, value)) return;
+        if (EqualityCheck(oldValue, value)) return;
         OnBeforeValueConsumed(value);
         ConsumeValue(value);
         RaiseValueConsumed(value);

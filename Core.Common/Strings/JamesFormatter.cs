@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
-using Core.Extensions.Reflection;
+using Core.Common.Reflect;
 using System.Collections;
 
 namespace Core.Strings
@@ -57,7 +57,7 @@ namespace Core.Strings
     public static object DynamicEval(object o, string expression)
     {
       dynamic @object = o;
-      return DynamicObjects.Extensions.GetPropertyValue(@object, expression);
+      return DynamicObject.GetPropertyValue(@object, expression);
     }
     public static object DictionaryEval(object source, string expression)
     {

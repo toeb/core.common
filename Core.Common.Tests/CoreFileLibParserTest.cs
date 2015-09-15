@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Core;
+using Core.Common.Collections;
 using Core.Extensions;
 namespace Core.Test
 {

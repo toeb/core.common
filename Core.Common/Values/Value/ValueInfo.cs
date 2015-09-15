@@ -1,6 +1,6 @@
 using System;
 using System.ComponentModel;
-
+using Core.Common.Reflect;
 namespace Core.Values
 {
   public class ValueInfo : NotifyPropertyChangedBase, IValueInfo, IModifiableConnectorInfo

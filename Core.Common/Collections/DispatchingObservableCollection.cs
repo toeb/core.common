@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Collections.ObjectModel;
+using Core.Common;
 
 namespace Core.Collections
 {
@@ -17,42 +18,45 @@ namespace Core.Collections
    */
   public class DispatchingObservableCollection<T> : ObservableCollection<T>
   {
-    public DispatchingObservableCollection()
+    public IDispatcher Dispatcher { get; private set; }
+
+    public DispatchingObservableCollection(IDispatcher dispatcher)
     {
+      this.Dispatcher = dispatcher;
     }
     protected override void MoveItem(int oldIndex, int newIndex)
     {
       lock (this)
       {
-        CoreDispatcher.Dispatch(() => base.MoveItem(oldIndex, newIndex));
+        Dispatcher.Dispatch(() => base.MoveItem(oldIndex, newIndex));
       }
     }
     protected override void SetItem(int index, T item)
     {
       lock (this)
       {
-        CoreDispatcher.Dispatch(() => base.SetItem(index, item));
+        Dispatcher.Dispatch(() => base.SetItem(index, item));
       }
     }
     protected override void ClearItems()
     {
       lock (this)
       {
-        CoreDispatcher.Dispatch(() => base.ClearItems());
+        Dispatcher.Dispatch(() => base.ClearItems());
       }
     }
     protected override void InsertItem(int index, T item)
     {
       lock (this)
       {
-        CoreDispatcher.Dispatch(() => base.InsertItem(index, item));
+        Dispatcher.Dispatch(() => base.InsertItem(index, item));
       }
     }
     protected override void RemoveItem(int index)
     {
       lock (this)
       {
-        CoreDispatcher.Dispatch(() => base.RemoveItem(index));
+        Dispatcher.Dispatch(() => base.RemoveItem(index));
       }
     }
 

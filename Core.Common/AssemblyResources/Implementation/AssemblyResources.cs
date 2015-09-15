@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel.Composition;
 using System.Linq;
 using System.Reflection;
-
+using Core.Common.Reflect;
 namespace Core.Resources
 {
   public class AssemblyResources :

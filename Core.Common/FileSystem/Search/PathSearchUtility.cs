@@ -1,8 +1,7 @@
 using Core.FileSystem;
-using Core.Strings;
 using System.Collections.Generic;
 using System.Linq;
-
+using Core.Common;
 namespace Core.FileSystem.Searching
 {
   public static class PathSearchUtility

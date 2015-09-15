@@ -11,7 +11,10 @@ using Core.Extensions;
 using System.IO;
 namespace Core.Test
 {
+  public class TestException : Exception
+  {
 
+  }
   [TestClass]
   public class CoreTryTests
   {

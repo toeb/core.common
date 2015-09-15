@@ -75,13 +75,13 @@ namespace Core
         {
           try
           {
-            result[property.Name] = property.GetValue(anonymousObject);
+            result[property.Name] = property.GetValue(anonymousObject, null);
           }
           catch (Exception e) { }
         }
         else
         {
-          result[property.Name] = property.GetValue(anonymousObject);
+          result[property.Name] = property.GetValue(anonymousObject, null);
         }
       }
       return result;

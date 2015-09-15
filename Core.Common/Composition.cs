@@ -27,7 +27,8 @@ namespace Core
     /// </summary>
     public static void InitializeDefault()
     {
-      RootCatalog.Catalogs.Add(new ApplicationCatalog());
+      throw new NotImplementedException();
+      //RootCatalog.Catalogs.Add(new ApplicationCatalog());
     }
 
     /// <summary>

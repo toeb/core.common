@@ -1,0 +1,3 @@
+MSPL Xceed.WpfToolkit
+Creative Commons Icons, GlyphIcons
+MIT OxyPlot

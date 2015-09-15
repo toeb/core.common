@@ -17,7 +17,7 @@ namespace Core
     public static IProjectInfo GetProjectInfo(this Assembly assembly)
     {
       var info = new ProjectInfo() { Assembly = assembly };
-      var infoType = assembly.DefinedTypes.SingleOrDefault(t => t.Name == "ProjectInfo");
+      var infoType = assembly.GetExportedTypes().SingleOrDefault(t => t.Name == "ProjectInfo");
       if (infoType == null) return info;
       var field = infoType.GetField("ProjectDir");
       if (field == null) return info;

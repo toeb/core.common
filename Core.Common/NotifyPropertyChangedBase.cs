@@ -45,11 +45,17 @@ namespace Core
       var name = Reflection.GetCallingPropertyName();
       RaisePropertyChanged(name);
     }
-
+    private bool EqualityCheck(object lhs,object rhs)
+    {
+      if (object.ReferenceEquals(lhs, rhs)) return true;
+      if (lhs != null) return lhs.Equals(rhs);
+      if (rhs != null) return rhs.Equals(lhs);
+      return true;
+    }
     protected bool ChangeIfDifferent<T>(ref T originalValue, T newValue, [CallerMemberName]string propertyName = null)
     {
       if (propertyName == null) propertyName = Reflection.GetCallingPropertyName();
-      if (Equality.Check(originalValue, newValue)) return false;
+      if (EqualityCheck(originalValue, newValue)) return false;
       var tmp = originalValue;
       NotifyTopicChanging(propertyName, tmp, newValue);
       originalValue = newValue;
@@ -60,7 +66,7 @@ namespace Core
     protected bool ChangeIfDifferentAndCallback<T>(ref T valueReference, T newValue, OnValueChangeDelegate<T> changing, OnValueChangeDelegate<T> changed, string propertyName)
     {
 
-      if (Equality.Check(valueReference, newValue)) return false;
+      if (EqualityCheck(valueReference, newValue)) return false;
       var oldValue = valueReference;
       if (changing != null) changing(oldValue, newValue);
       NotifyTopicChanging(propertyName, oldValue, newValue);
@@ -73,7 +79,7 @@ namespace Core
     protected bool ChangeIfDifferent<T>(ProduceValueDelegate<T> currentValueDelegate, ConsumeValueDelegate<T> consumeDelegate, T newValue, OnValueChangeDelegate<T> changing, OnValueChangeDelegate<T> changed, string propertyName)
     {
       var oldValue = currentValueDelegate();
-      if (Equality.Check(oldValue, newValue)) return false;
+      if (EqualityCheck(oldValue, newValue)) return false;
       if (changing != null) changing(oldValue, newValue);
       NotifyTopicChanging(propertyName, oldValue, newValue);
       consumeDelegate(newValue);

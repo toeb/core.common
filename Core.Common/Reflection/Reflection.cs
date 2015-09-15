@@ -7,12 +7,22 @@ using System.Reflection;
 using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
-
+using Core.Graph;
+using Core.Extensions;
 namespace Core
 {
   public static class Reflection
   {
     private static object[] emptyArray = new object[0];
+
+
+
+    public static Type GetCommonAncestorWith(this Type a, Type b)
+    {
+      var result =
+      a.FirstCommonAncestor(b, t => t.BaseType.MakeEnumerable(true));
+      return result;
+    }
 
     /// <summary>
     /// Returns the Calling Properties Name.  (you can increase to get the proerty name a up stackframes below)
@@ -140,25 +150,25 @@ namespace Core
         var propertyType = property.PropertyType;
         if (propertyType.IsValueType || typeof(string) == propertyType)
         {
-          property.SetValue(destination, property.GetValue(source));
+          property.SetValue(destination, property.GetValue(source,null),null);
           continue;
         }
-        var value = property.GetValue(source);
+        var value = property.GetValue(source, null);
 
         if (value == null)
         {
-          property.SetValue(destination, null);
+          property.SetValue(destination, null, null);
           continue;
         }
 
         if (seen.ContainsKey(value))
         {
-          property.SetValue(destination, seen[value]);
+          property.SetValue(destination, seen[value], null);
           continue;
         }
 
         var newInstance = System.Activator.CreateInstance(propertyType);
-        property.SetValue(destination, newInstance);
+        property.SetValue(destination, newInstance, null);
 
         seen[value] = newInstance;
 

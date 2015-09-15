@@ -20,11 +20,11 @@ namespace Core.FileSystem.Memory
       base.Flush();
       Entry.Data = ToArray();
     }
-    public async override Task FlushAsync(System.Threading.CancellationToken cancellationToken)
-    {
-      await base.FlushAsync(cancellationToken);
-      Entry.Data = ToArray();
-    }
+    //public async override Task FlushAsync(System.Threading.CancellationToken cancellationToken)
+    //{
+    //  await base.FlushAsync(cancellationToken);
+    //  Entry.Data = ToArray();
+    //}
 
     protected override void Dispose(bool disposing)
     {

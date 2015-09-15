@@ -63,9 +63,9 @@ namespace Core.Collections
      *
      * <remarks> Tobi, 3/16/2012.</remarks>
      */
-    public ObservableStack()
+    public ObservableStack(ICollection<T> collection)
     {
-      _data = CollectionFactory.CreateCollection<T>(true);
+      _data = collection;
     }
 
     /**

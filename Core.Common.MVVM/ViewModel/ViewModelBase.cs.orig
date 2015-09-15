@@ -1,0 +1,267 @@
+
+using System;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.ComponentModel.Composition;
+using System.Linq;
+using System.Windows.Input;
+using Core.Common.Reflect;
+using System.Collections;
+using System.Collections.Specialized;
+using System.ComponentModel;
+using Core.Common.Collections;
+using System.Resources;
+using System.Globalization;
+using System.Linq.Expressions;
+using Core.Common.Data;
+using Core.Common.MVVM.ViewModel;
+
+namespace Core.Common.MVVM
+{
+
+
+  /// <summary>
+  /// Base class for basic view models.
+  /// 
+  /// Properties which are of type colleciton are automatically injected with Observable Collections when Get is called
+  /// Commands marked with CommandAttribute are automatically added to CommandList
+  /// 
+  /// </summary>
+  public class ViewModelBase : BasePropertyObject, IViewModel, IViewManager, ISearchable
+  {
+
+    private CommandProvider commandProvider;
+    [Import]
+    public CommandProvider Commands { get { return commandProvider; } set { commandProvider = value; value.Context = this; } }
+
+    private ResourceProvider resourceProvider;
+
+    [Import]
+    public IShareService Shared { get; set; }
+
+    [Import]
+    public ResourceProvider Resources
+    {
+      get { return resourceProvider; }
+      set { resourceProvider = value; resourceProvider.Context = this; }
+    }
+
+    [Import]
+    public IViewModelProvider ViewModelProvider { get; set; }
+    [Import]
+    public IViewManager ViewManager { get; set; }
+    private IDispatcher dispatcher;
+<<<<<<< HEAD
+    
+=======
+
+>>>>>>> all12/new
+    [Import]
+    public IDispatcher Dispatcher
+    {
+      get { return dispatcher; }
+      set
+      {
+        this.dispatcher = value;
+        setter = new DispatchingSetter(innerSetter, value);
+      }
+    }
+
+
+
+
+    public void MapCollection<TSelf, TTarget, TModel>(TSelf self, ICollection<TModel> coll, Expression<Func<TSelf, ICollection<TTarget>>> expr)
+      where TSelf : ViewModelBase
+      where TTarget : ViewModelBase
+      where TModel : class
+    {
+      var mapped = MapCollection(coll, m => RequireChild<TTarget>(m));
+      var name = expr.MemberInfoFor().Name;
+      this.Set(name, typeof(ICollection<TTarget>), mapped);
+    }
+
+
+    public ICollection<TViewModel> MapCollection<TModel, TViewModel>(ICollection<TModel> collection, Func<TModel, TViewModel> inner2outer)
+      where TViewModel : ViewModelBase
+      where TModel : class
+    {
+      Func<TViewModel, TModel> outer2inner = outer => outer.Model as TModel;
+      return collection.Transform(inner2outer, outer2inner);
+
+    }
+
+    public void Dispath(Action action)
+    {
+      Dispatcher.Dispatch(action);
+    }
+    protected MessageViewModel NotifyUser(string title, string message)
+    {
+      var vm = ViewModelProvider.Require<MessageViewModel>();
+      vm.Title = title;
+      vm.Message = message;
+      ViewManager.ShowView(vm);
+      return vm;
+    }
+
+    #region bindable properties
+
+    #endregion
+
+    #region  Subscriptions
+
+    private void RegisterSubscriptions()
+    {
+      PropertyChanged += (sender, args) => OnPropertyChanaged(args.PropertyName);
+    }
+
+
+    private void OnPropertyChanaged(string key)
+    {
+      var currentSubscribers = subscribers.Where(s => s.Name == key);
+      var value = Get<object>(key);
+      foreach (var subscriber in currentSubscribers)
+      {
+        subscriber.Action(value);
+      }
+    }
+    private ICollection<Subscription> subscribers = new List<Subscription>();
+
+
+    public void Subscribe(string propertyName, Action<object> action)
+    {
+      subscribers.Add(new Subscription()
+      {
+        Name = propertyName,
+        Action = action
+      });
+    }
+
+    #endregion
+
+
+    void RegisterDependees()
+    {
+      var properties = GetType().PropertiesWith<DependsOnAttribute>();
+      foreach (var property in properties)
+      {
+        var info = property.Item1;
+        foreach (var attr in info.GetCustomAttributes<DependsOnAttribute>())
+        {
+          Subscribe(attr.PropertyName, val => RaisePropertyChanged(info.Name));
+        }
+      }
+    }
+
+    protected virtual IViewResult ShowCustomView(object viewModel)
+    {
+      return null;
+    }
+    public IViewResult ShowView(object viewModel)
+    {
+      var customView = ShowCustomView(viewModel);
+      if (customView != null) return customView;
+      return ViewManager.ShowView(viewModel);
+    }
+
+
+    public ViewModelBase()
+    {
+      innerSetter = setter;
+      getter = new ObservableCollectionGetter(getter, setter);
+      RegisterDependees();
+      RegisterSubscriptions();
+
+      this.Subscribe(m => m.Model, OnModelChanged);
+    }
+
+    protected virtual void OnModelChanged(object @object) { }
+
+
+
+    public virtual object Model
+    {
+      get
+      {
+        return Get<object>();
+      }
+      set
+      {
+        Set(value);
+      }
+    }
+
+
+
+    private IDictionary<Tuple<object, Type, string>, IViewModel> children = new Dictionary<Tuple<object, Type, string>, IViewModel>();
+    private PropertySetterDelegate innerSetter;
+
+    public T GetChild<T>(object value, string viewModelContract = null) where T : class,IViewModel
+    {
+      return GetChild(value, typeof(T), viewModelContract) as T;
+    }
+    public T RequireChild<T>(object value = null, string viewModelContract = null) where T : class,IViewModel
+    {
+      return RequireChild(value, typeof(T), viewModelContract) as T;
+    }
+    public IViewModel RequireChild(object value, Type viewModelType = null, string viewModelContract = null)
+    {
+
+      lock (children)
+      {
+        var key = Tuple.Create(value, viewModelType, viewModelContract);
+        if (children.ContainsKey(key)) return children[key];
+        var viewModel = CreateChild(value, viewModelType, viewModelContract);
+        children[key] = viewModel;
+        return viewModel;
+      }
+    }
+    public IViewModel GetChild(object value, Type viewModelType = null, string viewModelContract = null)
+    {
+      lock (children)
+      {
+        var key = Tuple.Create(value, viewModelType, viewModelContract);
+        if (!children.ContainsKey(key)) return null;
+        return children[key];
+      }
+    }
+    public IViewModel CreateChild(object value, Type viewModelType = null, string viewModelContract = null)
+    {
+      var modelType = value == null ? null : value.GetType();
+      // find viewmodel by comparing metadata to input
+      var viewModel = ViewModelProvider.RequireViewModel(metadata =>
+      {
+        if (modelType != null && modelType == metadata.ModelType) return true;
+        if (viewModelType != null && viewModelType == metadata.ViewModelType) return true;
+        if (!string.IsNullOrEmpty(viewModelContract) && viewModelContract == metadata.Contract) return true;
+        return false;
+      }) as IViewModel;
+
+      // setup connections
+      viewModel.Model = value;
+      viewModel.Parent = this;
+
+      return viewModel;
+    }
+
+
+    public IViewModel Parent
+    {
+      get;
+      set;
+    }
+
+    public virtual IEnumerable<SearchTerm> SearchTerms
+    {
+      get
+      {
+        var searchable = Model as ISearchable;
+        if (searchable == null) return new SearchTerm[0];
+        return searchable.SearchTerms;
+      }
+    }
+
+
+  }
+
+
+}

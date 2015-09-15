@@ -1,12 +1,13 @@
 ﻿using System;
 using System.Linq;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Core.Strings;
 using System.Collections.Generic;
-using System.Dynamic;
-using Core.DynamicObjects;
+//using System.Dynamic;
+using Core.Common.Reflect;
 using System.IO;
 using System.Globalization;
+using Core.Common;
+using Core.Common.Crypto;
 
 namespace Core.Test
 {
@@ -123,39 +124,31 @@ namespace Core.Test
       var list = new List<string>();
       for (int i = 0; i < 50; i++)
       {
-        list.Add(StringTools.RandomString());
+        list.Add(StringExtensions.RandomString());
       }
       // every item is different from every other item
       Assert.AreEqual(list.Count(), list.Distinct().Count());
     }
 
-    [TestMethod]
-    public void UriWithout()
-    {
-      Uri uut = new Uri("http://localhost:999/some/path/url");
-      Uri uut2 = new Uri("http://localhost:999/some/path/");
-      var result = uut.Without(uut2);
-      Assert.AreEqual("url", result);
 
-    }
-    [TestMethod]
-    public void NullableIntParse()
-    {
-      var result = "32323".ParseInt();
-      Assert.AreEqual(32323, result);
-    }
+    //[TestMethod]
+    //public void NullableIntParse()
+    //{
+    //  var result = "32323".ParseInt();
+    //  Assert.AreEqual(32323, result);
+    //}
 
 
     [TestMethod]
     public void ShouldCreateADictionaryFromTheDynamicObject()
     {
       var obj = new { a = 4, b = 3 };
-      dynamic d = new ExpandoObject();
+      dynamic d = new System.Dynamic.ExpandoObject();
       d.var1 = "asd";
       d.var2 = 1234;
       d.var3 = obj;
 
-      var result = DynamicObjects.Extensions.ToDictionary(d);
+      var result = DynamicObject.ToDictionary(d);
 
       Assert.AreEqual(result["var1"], "asd");
       Assert.AreEqual(result["var2"], 1234);
@@ -165,22 +158,22 @@ namespace Core.Test
     [TestMethod]
     public void ShouldReturnThePropertyValueOfANormalObject()
     {
-      var result = DynamicObjects.Extensions.GetPropertyValue(new { test = "231" }, "test");
+      var result = DynamicObject.GetPropertyValue(new { test = "231" }, "test");
       Assert.AreEqual("231", result);
     }
     [TestMethod]
     public void ShouldReturnADictionaryOfANormalObject()
     {
-      var result = DynamicObjects.Extensions.ToDictionary(new { test = "44", test2 = 23 });
+      var result = DynamicObject.ToDictionary(new { test = "44", test2 = 23 });
       Assert.AreEqual("44", result["test"]);
       Assert.AreEqual(23, result["test2"]);
     }
     [TestMethod]
     public void ShouldReturnThePropertyValueOfADynamicObject()
     {
-      dynamic d = new ExpandoObject();
+      dynamic d = new System.Dynamic.ExpandoObject();
       d.test = "asd";
-      var result = DynamicObjects.Extensions.GetPropertyValue(d, "test");
+      var result = DynamicObject.GetPropertyValue(d, "test");
       Assert.AreEqual("asd", result);
     }
 

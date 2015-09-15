@@ -35,12 +35,18 @@ namespace Core
       stream.Seek(0, SeekOrigin.Begin);
       return stream.ReadTextToEnd();
     }
-    public static async Task<string> WriteToString(Func<Stream, Task> asyncWriteAction)
+    public static Task<string> WriteToString(Func<Stream, Task> asyncWriteAction)
     {
       var stream = new MemoryStream();
-      await asyncWriteAction(stream);
-      stream.Seek(0, SeekOrigin.Begin);
-      return stream.ReadTextToEnd();
+      var task = asyncWriteAction(stream);
+      var result = task.ContinueWith(t =>
+      {
+        stream.Seek(0, SeekOrigin.Begin);
+        return stream.ReadTextToEnd();
+      });
+
+      return result;
+      
     }
   }
 }
