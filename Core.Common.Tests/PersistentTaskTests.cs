@@ -9,9 +9,23 @@ using System.Collections.Generic;
 using System.Linq.Expressions;
 using System.Linq;
 using Core.Common.Collections;
+using System.IO;
+using Core.Common.Crypto;
 
 namespace Core.Common.Tests
 {
+
+  public class Hel
+  {
+    static Hel()
+    {
+
+        CryptoObject.Serializer = new NewtonsoftJsonSerializer();
+    }
+
+  }
+
+ 
 
   public class MethodCall
   {
@@ -44,7 +58,7 @@ namespace Core.Common.Tests
   }
   public static class Bind
   {
-    
+
   }
 
   [TestClass]
@@ -53,8 +67,8 @@ namespace Core.Common.Tests
     [TestMethod]
     public void MethodCallCreate()
     {
-      var uut = MethodCall.FromExpression(() => InstanceTwoArgsReturnString(new Bind<string>("asda"), "constant",new Bind<string>("output")));
-      
+      var uut = MethodCall.FromExpression(() => InstanceTwoArgsReturnString(new Bind<string>("asda"), "constant", new Bind<string>("output")));
+
     }
 
     private void InstanceTwoArgsReturnString(string bind1, string v, string bind2)
@@ -74,7 +88,7 @@ namespace Core.Common.Tests
   public class Bind<T>
   {
     public Bind(string contract) { }
-    public static  implicit operator T(Bind<T> output)
+    public static implicit operator T(Bind<T> output)
     {
       return default(T);
     }

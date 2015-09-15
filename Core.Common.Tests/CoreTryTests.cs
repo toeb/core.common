@@ -137,11 +137,11 @@ namespace Core.Test
           throw new WrongException();
         });
       }
-      catch (WrongException e)
+      catch (WrongException )
       {
 
       }
-      catch (RightException re)
+      catch (RightException )
       {
 
       }

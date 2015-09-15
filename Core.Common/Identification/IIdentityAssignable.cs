@@ -8,6 +8,6 @@ namespace Core
 {
   public interface IIdentityAssignable<TId> : IIdentifiable<TId>
   {
-    TId Id { get; set; }
+    new TId Id { get; set; }
   }
 }

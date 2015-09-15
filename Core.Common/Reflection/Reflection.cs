@@ -93,7 +93,7 @@ namespace Core
         object result = methodInfo.Invoke(null, new object[0]);
         return (T)result;
       }
-      catch (Exception e)
+      catch (Exception )
       {
         return default(T);
       }
@@ -108,7 +108,7 @@ namespace Core
         result = info.Invoke(null, emptyArray);
         return result;
       }
-      catch (Exception e)
+      catch (Exception )
       {
 
         return null;
@@ -124,7 +124,7 @@ namespace Core
         return result;
 
       }
-      catch (Exception e)
+      catch (Exception )
       {
         return null;
       }

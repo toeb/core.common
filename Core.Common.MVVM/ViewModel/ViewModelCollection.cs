@@ -20,7 +20,8 @@ namespace Core.Common.MVVM
   
     public ViewModelCollection()
     {
-  
+      modelCollection = null;
+
     }
   
     private void AddModel(object mode)

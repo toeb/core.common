@@ -9,7 +9,7 @@ namespace Core.FileSystem
 {
   public class DelegateFileSystem : DelegateReadonlyFileSystem, IFileSystem
   {
-    protected new void SetImplementation(IFileSystem fileSystem)
+    protected void SetImplementation(IFileSystem fileSystem)
     {
       DelegateOpenFile = fileSystem.OpenFile;
       DelegateCreateFile = fileSystem.CreateFile;

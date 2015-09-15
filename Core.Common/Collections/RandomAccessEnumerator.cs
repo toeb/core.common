@@ -16,7 +16,7 @@ namespace Core.Collections
       try
       {
         Elements.Add(enumerator.Current);
-      }catch(Exception e){}
+      }catch(Exception){}
     }
     public T Current
     {

@@ -91,7 +91,7 @@ namespace Core.FileSystem.Test
         uut.DeleteDirectory("test1", false);
         Assert.Fail("shoul have thrown");
       }
-      catch (Exception e)
+      catch (Exception )
       {
 
       }

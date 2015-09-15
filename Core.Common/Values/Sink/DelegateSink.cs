@@ -62,7 +62,7 @@ namespace Core.Values
     }
     private ConsumeValueDelegate<T> consumer;
     private CanConsumeValueDelegate<T> canConsume;
-    ConsumeValueDelegate<T> Consumer
+    new ConsumeValueDelegate<T> Consumer
     {
       get { return consumer; }
       set
@@ -80,7 +80,7 @@ namespace Core.Values
       Consumer((T)value);
 
     }
-    CanConsumeValueDelegate<T> CanConsumeDelegate
+   new  CanConsumeValueDelegate<T> CanConsumeDelegate
     {
       get { return canConsume; }
 

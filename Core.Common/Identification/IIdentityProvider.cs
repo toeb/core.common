@@ -15,7 +15,7 @@ namespace Core
   [InheritedExport]
   public interface IIdentityProvider<T> : IIdentityProvider
   {
-    new object GetIdentity(T subject);
+    object GetIdentity(T subject);
   }
   [InheritedExport]
   public interface IIdentityProvider<T, TId> : IIdentityProvider<T>

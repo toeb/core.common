@@ -129,7 +129,7 @@ namespace Core
         if (version == "") return parsedVersion;
         parsedVersion = new Version(version);
       }
-      catch (Exception exception) { }
+      catch (Exception ) { }
       return parsedVersion;
 
     }

@@ -77,7 +77,7 @@ namespace Core
           {
             result[property.Name] = property.GetValue(anonymousObject, null);
           }
-          catch (Exception e) { }
+          catch (Exception ) { }
         }
         else
         {

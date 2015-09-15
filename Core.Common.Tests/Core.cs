@@ -8,9 +8,13 @@ using System.IO;
 using System.Globalization;
 using Core.Common;
 using Core.Common.Crypto;
+using Core.Common.Crypto.External;
 
 namespace Core.Test
 {
+
+
+
   class TestObject
   {
     public string a { get; set; }
@@ -37,12 +41,12 @@ namespace Core.Test
     [TestMethod]
     public void EncryptDecryptObject()
     {
-
+      var cert = new BouncyCastleX509Certificate2Generator().Generate("a", "a", "a");
       var obj = new TestObject() {a ="asd"};
-      var str = CryptoObject.Encrypt(obj);
+      var str = CryptoObject.Encrypt(obj,cert);
       Assert.IsNotNull(str);
 
-      var result = CryptoObject.Decrypt(str);
+      var result = CryptoObject.Decrypt(str,cert);
       Assert.AreEqual(obj.GetType(), result.GetType());
       var cast = result as TestObject;
       Assert.IsNotNull(cast);
@@ -53,16 +57,21 @@ namespace Core.Test
     [TestMethod]
     public void EncryptDecryptInt()
     {
-      var enc = Cryptography.Encrypt("1");
-      var dec = Cryptography.Decrypt(enc);
+      
+      var cert = new BouncyCastleX509Certificate2Generator().Generate("asd", "asd", "asd");
+      
+      var enc = Cryptography.Encrypt(cert,"1");
+      var dec = Cryptography.Decrypt(cert, enc);
       Assert.AreEqual("1", dec);
     }
 
     [TestMethod]
     public void DefaultEncryptDecrypt()
     {
-      var enc = Cryptography.Encrypt("hello");
-      var dec = Cryptography.Decrypt(enc);
+      var cert = new BouncyCastleX509Certificate2Generator().Generate("a", "a", "a");
+
+      var enc = Cryptography.Encrypt(cert, "hello");
+      var dec = Cryptography.Decrypt(cert,enc);
       Assert.AreEqual("hello", dec, "decryption ouput should have given the input");
     }
 
@@ -70,8 +79,9 @@ namespace Core.Test
     [TestMethod]
     public void EncryptDecrypt()
     {
+
       // if fails run following as admin in shell with visual studio vars:  makecert -sr LocalMachine -ss my -n CN=WebAPI-Token -sky exchange -pe
-      var cert = Cryptography.GetX509Certificate("CN=WebAPI-Token");
+      var cert = new  BouncyCastleX509Certificate2Generator().Generate("asdasd","asdasd", "asdasda");
       var encrypted = Cryptography.Encrypt(cert, "hello world");
       var result = Cryptography.Decrypt(cert, encrypted);
 

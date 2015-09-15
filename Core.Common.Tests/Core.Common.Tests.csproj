@@ -47,6 +47,7 @@
   <ItemGroup>
     <Compile Include="AbstractModifiableFileSystemTest.cs" />
     <Compile Include="AbstractReadonlyFilesystemTest.cs" />
+    <Compile Include="CertificatGeneratorTest.cs" />
     <Compile Include="Core.Collections.cs" />
     <Compile Include="Core.cs" />
     <Compile Include="Core.Math.cs" />
@@ -87,6 +88,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+    <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="example_dir\file1.txt">
@@ -110,6 +112,10 @@
     <Content Include="test1.txt" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Core.Common.External\Core.Common.External.csproj">
+      <Project>{1da97a2e-a809-4f2c-bdef-17c3deb734b4}</Project>
+      <Name>Core.Common.External</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Core.Common.TestingUtilities\Core.TestingUtilities.csproj">
       <Project>{c654eba7-7b20-4d61-9cff-207ede5b98fc}</Project>
       <Name>Core.TestingUtilities</Name>
@@ -120,6 +126,10 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <Reference Include="BouncyCastle.Crypto, Version=1.7.4137.9688, Culture=neutral, PublicKeyToken=a4292a325f69b123, processorArchitecture=MSIL">
+      <HintPath>..\packages\BouncyCastle.1.7.0\lib\Net40-Client\BouncyCastle.Crypto.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="Microsoft.VisualStudio.QualityTools.UnitTestFramework, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
       <Private>False</Private>

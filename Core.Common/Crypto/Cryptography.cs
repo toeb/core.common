@@ -11,8 +11,12 @@ using System.Text;
 
 namespace Core.Common.Crypto
 {
+
+
   public static class Cryptography
   {
+
+
     private const int TokenSizeInBytes = 16;
     private const int Pbkdf2Count = 1000;
     private const int Pbkdf2SubkeyLength = 256 / 8;
@@ -231,7 +235,7 @@ namespace Core.Common.Crypto
       return areSame;
     }
     /// <summary>
-    /// 
+    /// loads the certificate with the specified subject name from the machines certificate store
     ///                                        name
     /// makecert -sr LocalMachine -ss my -n CN=WebAPI-Token -sky exchange -pe
     /// </summary>
@@ -260,6 +264,8 @@ namespace Core.Common.Crypto
     }
 
 
+
+
     /// <summary>
     ///                                        name              encrytion allowed
     /// makecert -sr LocalMachine -ss my -n CN=WebAPI-Token -sky exchange -pe
@@ -281,24 +287,8 @@ namespace Core.Common.Crypto
       return Encoding.UTF8.GetString(decryptedTokenBytes);
     }
 
-    /// <summary>
-    /// uses default certificate "DefaultEncryptionCertificate"
-    ///                                        name              encrytion allowed
-    /// makecert -sr LocalMachine -ss my -n CN=DefaultEncryptionCertificate -sky exchange -pe
-    /// </summary>
-    /// <param name="certificate"></param>
-    /// <param name="plainToken"></param>
-    /// <returns></returns>
-    public static string Encrypt(string plaintext)
-    {
-      var cert = GetX509Certificate("CN=DefaultEncryptionCertificate");
-      return Encrypt(cert, plaintext);
-    }
-    public static string Decrypt(string encrypted)
-    {
-      var cert = GetX509Certificate("CN=DefaultEncryptionCertificate");
-      return Decrypt(cert, encrypted);
-    }
+
+
 
 
     public static string HashFile(string filePath)

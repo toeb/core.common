@@ -52,7 +52,7 @@ namespace Core.Common.Wpf.Views
       {
         this.Content = view;
       }
-      catch (Exception e)
+      catch (Exception )
       {
 
       }
