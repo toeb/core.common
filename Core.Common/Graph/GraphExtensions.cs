@@ -25,7 +25,37 @@ namespace Core.Graph
       return default(T);
 
     }
+    public static IEnumerable<T> TraverseOrder<T>(this IEnumerable<T> v0, Func<T, IEnumerable<T>> expand, Func<T> pop, Action<T> push, Func<bool> empty)
+    {
+      //used to mark if an element was visited
+      var visited = new Marker();
+      // add root element
+      foreach(var v in v0)
+      {
+        push(v);
 
+      }
+      while (true)
+      {
+        // stop when container is empty
+        if (empty()) yield break;
+        // get the first element of the container
+        var current = pop();
+        // if element is visited return
+        if (visited[current]) continue;
+        // visit element
+        visited[current] = true;
+        // yield the element
+        yield return current;
+        // expand the element
+        var successors = expand(current);
+        // add all successors to the container
+        foreach (var successor in successors)
+        {
+          push(successor);
+        }
+      }
+    }
     /// <summary>
     /// Default Traversal algorithm
     /// </summary>
@@ -99,7 +129,11 @@ namespace Core.Graph
         }
       }
     }
-
+    public static IEnumerable<T> DfsOrder<T>(this IEnumerable<T> v0, Func<T,IEnumerable<T>> expand)
+    {
+      var stack = new Stack<T>();
+      return TraverseOrder<T>(v0, expand, stack.Pop, stack.Push, stack.None);
+    }
 
     public static IEnumerable<T> DfsOrder<T>(this T root, Func<T, IEnumerable<T>> successors)
     {

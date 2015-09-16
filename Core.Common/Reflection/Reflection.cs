@@ -15,8 +15,40 @@ namespace Core
   {
     private static object[] emptyArray = new object[0];
 
+    /// <summary>
+    /// Returns the interfaces that this type adds to its inheritance,
+    /// interfaces that are stated but are already part of the base interfaces are 
+    /// not returned
+    /// </summary>
+    /// <param name="type"></param>
+    /// <returns></returns>
+    public static IEnumerable<Type> GetTypeSpecificInterfaces(this Type type)
+    {
+
+      var allTnterfaces = type.GetInterfaces();
+
+      var interfaces = allTnterfaces.ToList();
 
 
+      foreach (var i in allTnterfaces)
+      {
+        foreach (var i2 in i.GetInterfaces())
+        {
+          interfaces.Remove(i2);
+        }
+      }
+      return interfaces.ToArray();
+    }
+    /// <summary>
+    /// returns all types on which this type bases (interfaces and base class)
+    /// </summary>
+    /// <param name="type"></param>
+    /// <returns></returns>
+    public static IEnumerable<Type> GetDirectBaseTypes(this Type type)
+    {
+      var baseType = type.BaseType == null ? new Type[0] : new Type[] { type.BaseType };
+      return baseType.Concat(type.GetTypeSpecificInterfaces()).ToArray();
+    }
     public static Type GetCommonAncestorWith(this Type a, Type b)
     {
       var result =

@@ -241,6 +241,8 @@ namespace Core.Extensions
       if (_this == null) return item.MakeArray();
       return _this.Concat(item.MakeArray());
     }
+
+    
     /// <summary>
     /// returns the indeox of a in an enumerable (depending on the actual type of the neumerable the index may vary 
     /// </summary>
