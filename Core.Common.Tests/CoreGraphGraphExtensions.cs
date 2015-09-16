@@ -11,5 +11,19 @@ namespace Core.Test
   public class CoreGraphGraphExtensionsTest
   {
 
+    [TestCategory("Graph")]
+    [TestMethod]
+    public void TestDependencyOrder()
+    {
+
+    }
+
+  }
+
+
+
+  public static class Impl
+  {      
+   
   }
 }

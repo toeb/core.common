@@ -11,6 +11,44 @@ namespace Core.Graph
 
   public static class GraphExtensions
   {
+    /// <summary>
+    /// Implements the Tarjan 1976 depth first topological sort algorithm (recursive)
+    /// 
+    /// </summary>
+    /// <typeparam name="T"></typeparam>
+    /// <param name="nodes"></param>
+    /// <param name="expand"></param>
+    /// <returns></returns>
+    public static IEnumerable<T> TopSort<T>(this IEnumerable<T> rootNodes, Func<T, IEnumerable<T>> expand)
+    {
+      ISet<T> visited = new HashSet<T>();
+      ISet<T> visiting = new HashSet<T>();
+      List<T> L = new List<T>();
+      Func<T, bool> visit = null;
+      visit = n =>
+      {
+        if (visited.Contains(n)) return true;
+        if (!visiting.Add(n)) return false;
+        if (!visited.Contains(n))
+        {
+          foreach (var m in expand(n))
+          {
+            if (!visit(m)) return false;
+          }
+          visited.Add(n);
+          visiting.Remove(n);
+          L.Add(n);
+        }
+        return true;
+      };
+
+      foreach (var n in rootNodes)
+      {
+        if (!visit(n)) return null;
+      }
+      return L;
+    }
+
     public static T FirstCommonAncestor<T>(this T a, T b, Func<T, IEnumerable<T>> ancestors)
     {
       var bfsA = a.BfsOrder(ancestors);

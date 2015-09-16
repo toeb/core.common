@@ -5,6 +5,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Core.Common.Reflect;
+using Core.Graph;
+
 namespace Core.Common.CodeGeneration
 {
   public interface IMyType
@@ -26,23 +28,23 @@ namespace Core.Common.CodeGeneration
 
   public static class TemplateHelpers
   {
-    public static string BeginNamespaceCxx(this Type type)
+    public static string BeginNamespaceCxx(this CodeGenerationContext context,  Type type)
     {
       var namespaces = type.Namespace.Split('.');
       var namespaceString = string.Join("\n", namespaces.Select(ns => "namespace " + ns + " {"));
       return namespaceString;
     }
-    public static string FormatNamespaceCxx(this Type type)
+    public static string FormatNamespaceCxx(this CodeGenerationContext context, Type type)
     {
       return type.Namespace.Replace(".", "::"); 
     }
-    public static string EndNamespaceCxx (this Type type)
+    public static string EndNamespaceCxx (this CodeGenerationContext context, Type type)
     {
       var namespaces = type.Namespace.Split('.');
       var namespaceString = string.Join("\n", namespaces.Select(ns => "} // namespace "+ns));
       return namespaceString;
     }
-    public static string FormatBaseClassesCxx(this Type type)
+    public static string FormatBaseClassesCxx(this CodeGenerationContext context, Type type)
     {
 
       var baseTypes = type.GetDirectBaseTypes();
@@ -54,12 +56,20 @@ namespace Core.Common.CodeGeneration
       return result;
     }
 
-
+    
     
 
 
   }
+  class CodeGenerationContext
+  {
+    public int IndentationLevel{ get; set; }
+    public string CurrentNamespace { get; set; }
 
+
+
+
+  }
   [TestClass]
   public class Class1
   {
@@ -69,7 +79,9 @@ namespace Core.Common.CodeGeneration
     {
       cxx tt1 = new cxx();
       tt1.Session = new Dictionary<string, object>();
-      tt1.Session["Types"] = new[] { typeof(IMyType), typeof(Lol.IMyType2) };
+      var types = new[] { typeof(IMyType), typeof(Lol.IMyType2) }.TopSort(t=>t.GetDirectBaseTypes()).ToArray();
+      tt1.Session["Types"] = types;
+      
       tt1.Initialize();
 
       var text = tt1.TransformText();
