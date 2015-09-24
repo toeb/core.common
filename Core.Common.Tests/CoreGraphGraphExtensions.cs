@@ -22,8 +22,4 @@ namespace Core.Test
 
 
 
-  public static class Impl
-  {      
-   
-  }
 }

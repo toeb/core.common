@@ -46,14 +46,15 @@ namespace Core.Common.CodeGeneration
     }
     public static string FormatBaseClassesCxx(this CodeGenerationContext context, Type type)
     {
+      throw new NotImplementedException();
 
-      var baseTypes = type.GetDirectBaseTypes();
-      baseTypes = baseTypes.OrderByDescending(t=>t.IsInterface?0:1);
-      if (baseTypes.Count() == 0) return "";
-      var names = baseTypes.Select(t => t.FormatNamespaceCxx() + "::" + t.Name);
-      if (baseTypes.Count() == 1) return " : " + names.First();
-      var result = string.Join(",\n", names);
-      return result;
+      //var baseTypes = type.GetDirectBaseTypes();
+      //baseTypes = baseTypes.OrderByDescending(t=>t.IsInterface?0:1);
+      //if (baseTypes.Count() == 0) return "";
+      //var names = baseTypes.Select(t => t.FormatNamespaceCxx() + "::" + t.Name);
+      //if (baseTypes.Count() == 1) return " : " + names.First();
+      //var result = string.Join(",\n", names);
+      //return result;
     }
 
     
@@ -61,7 +62,7 @@ namespace Core.Common.CodeGeneration
 
 
   }
-  class CodeGenerationContext
+  public class CodeGenerationContext
   {
     public int IndentationLevel{ get; set; }
     public string CurrentNamespace { get; set; }
@@ -77,14 +78,14 @@ namespace Core.Common.CodeGeneration
     [TestCategory("IDL")]
     public void Testit()
     {
-      cxx tt1 = new cxx();
-      tt1.Session = new Dictionary<string, object>();
-      var types = new[] { typeof(IMyType), typeof(Lol.IMyType2) }.TopSort(t=>t.GetDirectBaseTypes()).ToArray();
-      tt1.Session["Types"] = types;
+      //cxx tt1 = new cxx();
+      //tt1.Session = new Dictionary<string, object>();
+      //var types = new[] { typeof(IMyType), typeof(Lol.IMyType2) }.TopSort(t=>t.GetDirectBaseTypes()).ToArray();
+      //tt1.Session["Types"] = types;
       
-      tt1.Initialize();
+      //tt1.Initialize();
 
-      var text = tt1.TransformText();
+      //var text = tt1.TransformText();
 
 
 
