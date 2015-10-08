@@ -97,6 +97,7 @@
     <Compile Include="Composition.cs" />
     <Compile Include="Crypto\Cryptography.cs" />
     <Compile Include="Crypto\CryptoObjectExtensions.cs" />
+    <Compile Include="Crypto\IX509Certificate2Generator.cs" />
     <Compile Include="Data\AbstractDataContext.cs" />
     <Compile Include="Data\DataChangeAction.cs" />
     <Compile Include="Data\DataChangedEventHandler.cs" />

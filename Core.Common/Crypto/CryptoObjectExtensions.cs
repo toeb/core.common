@@ -1,6 +1,7 @@
 ﻿using System;
 using System.IO;
 using Core.Common.Crypto;
+using System.Security.Cryptography.X509Certificates;
 
 namespace Core
 {
@@ -20,11 +21,11 @@ namespace Core
     /// </summary>
     /// <param name="object"></param>
     /// <returns></returns>
-    public static string Encrypt(object @object)
+    public static string Encrypt(object @object, X509Certificate2 certificate)
     {
       StringWriter stringWriter = new StringWriter();
       Serializer.Serialize(stringWriter, @object);
-      var result = Cryptography.Encrypt(stringWriter.ToString());
+      var result = Cryptography.Encrypt(certificate, stringWriter.ToString());
       return result;
     }
 
@@ -33,9 +34,9 @@ namespace Core
     /// </summary>
     /// <param name="encryptedObject"></param>
     /// <returns></returns>
-    public static object Decrypt(string encryptedObject)
+    public static object Decrypt(string encryptedObject, X509Certificate2 certificate)
     {
-      var result = Serializer.Deserialize(new StringReader(Cryptography.Decrypt(encryptedObject)));
+      var result = Serializer.Deserialize(new StringReader(Cryptography.Decrypt(certificate, encryptedObject)));
       return result;
     }
 
@@ -44,19 +45,13 @@ namespace Core
     /// </summary>
     /// <param name="message"></param>
     /// <returns></returns>
-    public static string EncryptAndEscape(object @object)
+    public static string EncryptAndEscape(object @object, X509Certificate2 certificate)
     {
-      var encrypted = Encrypt(@object);
+      var encrypted = Encrypt(@object,certificate);
       return Uri.EscapeDataString(encrypted);
 
     }
 
-
-
-    static CryptoObject()
-    {
-
-    }
 
     public static ISerializer Serializer { get; set; }
     

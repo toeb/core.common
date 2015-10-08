@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace Core.FileSystem.Test
@@ -19,7 +20,7 @@ namespace Core.FileSystem.Test
       {
         DeleteDir("testdir");
       }
-      catch (Exception e) { }
+      catch (Exception ) { }
       CreateDir("testdir");
 
     }
@@ -124,6 +125,7 @@ namespace Core.FileSystem.Test
     {
       CreateFile("somefile.txt", "content");
       var key = uut.GetCacheKey("somefile.txt");
+      Thread.Sleep(19);
       CreateFile("somefile.txt", "content2");
       var newKey = uut.GetCacheKey("somefile.txt");
       Assert.AreNotEqual(key, newKey);

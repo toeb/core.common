@@ -11,6 +11,44 @@ namespace Core.Graph
 
   public static class GraphExtensions
   {
+    /// <summary>
+    /// Implements the Tarjan 1976 depth first topological sort algorithm (recursive)
+    /// 
+    /// </summary>
+    /// <typeparam name="T"></typeparam>
+    /// <param name="nodes"></param>
+    /// <param name="expand"></param>
+    /// <returns></returns>
+    public static IEnumerable<T> TopSort<T>(this IEnumerable<T> rootNodes, Func<T, IEnumerable<T>> expand)
+    {
+      ISet<T> visited = new HashSet<T>();
+      ISet<T> visiting = new HashSet<T>();
+      List<T> L = new List<T>();
+      Func<T, bool> visit = null;
+      visit = n =>
+      {
+        if (visited.Contains(n)) return true;
+        if (!visiting.Add(n)) return false;
+        if (!visited.Contains(n))
+        {
+          foreach (var m in expand(n))
+          {
+            if (!visit(m)) return false;
+          }
+          visited.Add(n);
+          visiting.Remove(n);
+          L.Add(n);
+        }
+        return true;
+      };
+
+      foreach (var n in rootNodes)
+      {
+        if (!visit(n)) return null;
+      }
+      return L;
+    }
+
     public static T FirstCommonAncestor<T>(this T a, T b, Func<T, IEnumerable<T>> ancestors)
     {
       var bfsA = a.BfsOrder(ancestors);
@@ -25,7 +63,37 @@ namespace Core.Graph
       return default(T);
 
     }
+    public static IEnumerable<T> TraverseOrder<T>(this IEnumerable<T> v0, Func<T, IEnumerable<T>> expand, Func<T> pop, Action<T> push, Func<bool> empty)
+    {
+      //used to mark if an element was visited
+      var visited = new Marker();
+      // add root element
+      foreach(var v in v0)
+      {
+        push(v);
 
+      }
+      while (true)
+      {
+        // stop when container is empty
+        if (empty()) yield break;
+        // get the first element of the container
+        var current = pop();
+        // if element is visited return
+        if (visited[current]) continue;
+        // visit element
+        visited[current] = true;
+        // yield the element
+        yield return current;
+        // expand the element
+        var successors = expand(current);
+        // add all successors to the container
+        foreach (var successor in successors)
+        {
+          push(successor);
+        }
+      }
+    }
     /// <summary>
     /// Default Traversal algorithm
     /// </summary>
@@ -99,7 +167,11 @@ namespace Core.Graph
         }
       }
     }
-
+    public static IEnumerable<T> DfsOrder<T>(this IEnumerable<T> v0, Func<T,IEnumerable<T>> expand)
+    {
+      var stack = new Stack<T>();
+      return TraverseOrder<T>(v0, expand, stack.Pop, stack.Push, stack.None);
+    }
 
     public static IEnumerable<T> DfsOrder<T>(this T root, Func<T, IEnumerable<T>> successors)
     {

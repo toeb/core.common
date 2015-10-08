@@ -59,12 +59,12 @@ namespace Core.FileSystem
     /// <param name="path"></param>
     /// <returns></returns>
     string ToVirtualAbsolutePath(string path);
-    /// <summary>
-    /// returns absolute path
-    /// </summary>
-    /// <param name="path"></param>
-    /// <returns></returns>
-    string ToAbsolutePath(string path);
+    ///// <summary>
+    ///// returns absolute path
+    ///// </summary>
+    ///// <param name="path"></param>
+    ///// <returns></returns>
+    //string ToAbsolutePath(string path);
 
 
     string AbsoluteToVirtualAbsolutePath(string absolute);

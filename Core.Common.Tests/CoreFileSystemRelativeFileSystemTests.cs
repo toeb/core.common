@@ -192,7 +192,7 @@ namespace Core.FileSystem.Test
       {
         fs1.CreateDirectory(".");
       }
-      catch (Exception e) { }
+      catch (Exception ) { }
       fs1.CreateFile("test.txt").Close();
 
       var fs = cfs.GetFileSystemFromPath("test.txt");
@@ -210,7 +210,7 @@ namespace Core.FileSystem.Test
       {
         fs1.CreateDirectory(".");
       }
-      catch (Exception e) { }
+      catch (Exception ) { }
       fs1.CreateFile("test.txt").Close();
 
       var fs = cfs.GetFileSystemFromPath("test.txt");
@@ -225,7 +225,7 @@ namespace Core.FileSystem.Test
       {
         fs1.CreateDirectory(".");
       }
-      catch (Exception e) { }
+      catch (Exception ) { }
       fs1.CreateFile("test.txt").Close();
 
       Assert.IsTrue(fs1.Exists("test.txt"));

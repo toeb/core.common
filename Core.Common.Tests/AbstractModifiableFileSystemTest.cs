@@ -24,7 +24,7 @@ namespace Core.FileSystem.Test
         uut.DeleteDirectory("testdir", true);
 
       }
-      catch (Exception e)
+      catch (Exception )
       {
       }
       uut.CreateDirectory("testdir");
